@@ -14,7 +14,15 @@ namespace UnityStandardAssets._2D
         {
             m_Character = GetComponent<PlatformerCharacter2D>();
         }
-		
+
+		public void Jump()
+		{
+			if (!m_Jump)
+			{
+				// Read the jump input in Update so button presses aren't missed.
+				m_Jump = true;
+			}
+		}
         private void Update()
         {
             if (!m_Jump)
