@@ -7,6 +7,9 @@ namespace UnityStandardAssets._2D
     [RequireComponent(typeof (PlatformerCharacter2D))]
     public class Platformer2DUserControl : MonoBehaviour
     {
+		public GameObject bullet;
+		public float speed = 500f;
+		public GameObject aim;
         private PlatformerCharacter2D m_Character;
         private bool m_Jump;
 		
@@ -22,6 +25,19 @@ namespace UnityStandardAssets._2D
 				// Read the jump input in Update so button presses aren't missed.
 				m_Jump = true;
 			}
+		}
+		public void Shoot()
+		{
+				
+				// Instantiate the projectile at the position and rotation of this transform
+				GameObject clone;
+				clone = (GameObject) Instantiate(bullet, transform.position, transform.rotation);
+				
+				clone.GetComponent<Rigidbody2D>().velocity = (aim.transform.position - transform.position).normalized * speed; 
+
+				
+				Destroy (clone.gameObject, 3);
+
 		}
         private void Update()
         {
