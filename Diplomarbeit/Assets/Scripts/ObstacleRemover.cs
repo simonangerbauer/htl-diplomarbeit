@@ -8,6 +8,7 @@ public class ObstacleRemover : MonoBehaviour {
 		if (other.tag == "Obstacle") 
 		{
 			other.gameObject.SetActive(false);
+			other.gameObject.GetComponent<ObstacleCollisionManager>().isCollided = false;
 		}
 	}
 }
