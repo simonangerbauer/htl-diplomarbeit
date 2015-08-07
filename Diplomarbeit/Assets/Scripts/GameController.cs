@@ -32,4 +32,18 @@ public class GameController : MonoBehaviour {
 	public GameObject Player;
 	public GameObject Score;
 
+
+	public void GameOver()
+	{
+		Application.LoadLevel (1);
+	}
+	public void StartGame()
+	{
+		//TODO:reset score and stuff
+		Application.LoadLevel (0);
+	}
+	public void OpenMenu()
+	{
+		Application.LoadLevel (2);
+	}
 }
