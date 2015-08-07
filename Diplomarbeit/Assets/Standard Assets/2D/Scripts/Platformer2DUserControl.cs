@@ -1,4 +1,6 @@
 using System;
+using System.Linq;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityStandardAssets.CrossPlatformInput;
 
@@ -10,9 +12,11 @@ namespace UnityStandardAssets._2D
 		public GameObject bullet;
 		public float speed = 500f;
 		public GameObject aim;
+
         private PlatformerCharacter2D m_Character;
         private bool m_Jump;
-		
+		private List<GameObject> bullets = new List<GameObject>();
+
         private void Awake()
         {
             m_Character = GetComponent<PlatformerCharacter2D>();
@@ -28,15 +32,16 @@ namespace UnityStandardAssets._2D
 		}
 		public void Shoot()
 		{
-				
-				// Instantiate the projectile at the position and rotation of this transform
-				GameObject clone;
-				clone = (GameObject) Instantiate(bullet, transform.position, transform.rotation);
-				
-				clone.GetComponent<Rigidbody2D>().velocity = (aim.transform.position - transform.position).normalized * speed; 
-
-				
-				Destroy (clone.gameObject, 3);
+			GameObject obj = bullets.FirstOrDefault(x => !x.activeInHierarchy);
+			if (obj == null) 
+			{
+				obj = (GameObject)Instantiate(bullet);
+				bullets.Add(obj);
+			}
+			obj.SetActive (true);
+			obj.transform.position = transform.position;
+			obj.transform.rotation = transform.rotation;
+			obj.GetComponent<Rigidbody2D>().velocity = (aim.transform.position - transform.position).normalized * speed; 
 
 		}
         private void Update()
