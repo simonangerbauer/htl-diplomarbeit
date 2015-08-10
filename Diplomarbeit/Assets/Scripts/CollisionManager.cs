@@ -18,7 +18,10 @@ public class CollisionManager : MonoBehaviour {
 		if (other.tag == "Remover" || other.tag == "Enemy" || other.tag == "Ground")
 		{
 			if(other.tag == "Enemy")
+			{
 				other.gameObject.SetActive(false);
+				GameController.instance.ChangeCurrency(1);
+			}
 			gameObject.SetActive(false);
 			isCollided = false;
 		}

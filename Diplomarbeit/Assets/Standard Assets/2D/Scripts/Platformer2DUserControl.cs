@@ -10,8 +10,7 @@ namespace UnityStandardAssets._2D
     public class Platformer2DUserControl : MonoBehaviour
     {
 		public GameObject bullet;
-		public float speed = 500f;
-		public GameObject aim;
+		public float speed = 150f;
 
         private PlatformerCharacter2D m_Character;
         private bool m_Jump;
@@ -32,17 +31,23 @@ namespace UnityStandardAssets._2D
 		}
 		public void Shoot()
 		{
-			GameObject obj = bullets.FirstOrDefault(x => !x.activeInHierarchy);
-			if (obj == null) 
+			if (Input.mousePosition.x > Screen.width / 5 || Input.mousePosition.y > Screen.height / 2.5) 
 			{
-				obj = (GameObject)Instantiate(bullet);
-				bullets.Add(obj);
+				Vector3 target = new Vector3(Input.mousePosition.x, Input.mousePosition.y, 0);
+				target = Camera.main.ScreenToWorldPoint(target);
+				target.Set(target.x, target.y, gameObject.transform.position.z);
+				
+				GameObject obj = bullets.FirstOrDefault(x => !x.activeInHierarchy);
+				if (obj == null) 
+				{
+					obj = (GameObject)Instantiate(bullet);
+					bullets.Add(obj);
+				}
+				obj.SetActive (true);
+				obj.transform.position = transform.position;
+				obj.transform.rotation = transform.rotation;
+				obj.GetComponent<Rigidbody2D>().velocity = (target - transform.position).normalized * speed; 
 			}
-			obj.SetActive (true);
-			obj.transform.position = transform.position;
-			obj.transform.rotation = transform.rotation;
-			obj.GetComponent<Rigidbody2D>().velocity = (aim.transform.position - transform.position).normalized * speed; 
-
 		}
         private void Update()
         {
@@ -51,6 +56,10 @@ namespace UnityStandardAssets._2D
                 // Read the jump input in Update so button presses aren't missed.
                 m_Jump = CrossPlatformInputManager.GetButtonDown("Jump");
             }
+			if (Input.GetMouseButtonDown (0)) 
+			{
+				Shoot ();
+			}
         }
 
 

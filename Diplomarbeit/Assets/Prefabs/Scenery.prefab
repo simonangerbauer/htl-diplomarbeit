@@ -222,7 +222,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 404910065
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: a30d0b0e1afd8ab4ea8a4a0290404f59, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 8eeaba973de60134fb7f7fb68863fe5b, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
 --- !u!212 &21241772
 SpriteRenderer:
@@ -300,7 +300,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 404910065
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: a30d0b0e1afd8ab4ea8a4a0290404f59, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 8eeaba973de60134fb7f7fb68863fe5b, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
 --- !u!1001 &100100000
 Prefab:

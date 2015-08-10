@@ -3,10 +3,11 @@ using System.Collections;
 using UnityEngine.EventSystems;
 using System.Linq;
 
-public class DragHandler : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDragHandler {
+public class DragHandler : MonoBehaviour {
 	public static GameObject itemBeingDragged;
 
-	#region IBeginDragHandler implementation
+
+	/*#region IBeginDragHandler implementation
 
 	public void OnBeginDrag (PointerEventData eventData)
 	{
@@ -44,5 +45,5 @@ public class DragHandler : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndD
 		itemBeingDragged = null;
 	}
 
-	#endregion
+	#endregion*/
 }
