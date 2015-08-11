@@ -11,6 +11,7 @@ namespace UnityStandardAssets._2D
     {
 		public GameObject bullet;
 		public float speed = 150f;
+		public bool move = true;
 
         private PlatformerCharacter2D m_Character;
         private bool m_Jump;
@@ -31,7 +32,7 @@ namespace UnityStandardAssets._2D
 		}
 		public void Shoot()
 		{
-			if (Input.mousePosition.x > Screen.width / 5 || Input.mousePosition.y > Screen.height / 2.5) 
+			if ((Input.mousePosition.x > Screen.width / 5 || Input.mousePosition.y > Screen.height / 2.5)&&(Input.mousePosition.x > 100 || Input.mousePosition.y < Screen.height - 100)) 
 			{
 				Vector3 target = new Vector3(Input.mousePosition.x, Input.mousePosition.y, 0);
 				target = Camera.main.ScreenToWorldPoint(target);
@@ -51,14 +52,17 @@ namespace UnityStandardAssets._2D
 		}
         private void Update()
         {
-            if (!m_Jump)
-            {
-                // Read the jump input in Update so button presses aren't missed.
-                m_Jump = CrossPlatformInputManager.GetButtonDown("Jump");
-            }
-			if (Input.GetMouseButtonDown (0)) 
+			if (move) 
 			{
-				Shoot ();
+				if (!m_Jump)
+				{
+					// Read the jump input in Update so button presses aren't missed.
+					m_Jump = CrossPlatformInputManager.GetButtonDown("Jump");
+				}
+				if (Input.GetMouseButtonDown (0)) 
+				{
+					Shoot ();
+				}
 			}
         }
 
@@ -69,8 +73,11 @@ namespace UnityStandardAssets._2D
             // bool crouch = Input.GetKey(KeyCode.LeftControl);
             // float h = CrossPlatformInputManager.GetAxis("Horizontal");
             // Pass all parameters to the character control script.
-            m_Character.Move(1, false, m_Jump);
-            m_Jump = false;
+			if (move) 
+			{
+				m_Character.Move(1, false, m_Jump);
+				m_Jump = false;
+			}  
         }
     }
 }

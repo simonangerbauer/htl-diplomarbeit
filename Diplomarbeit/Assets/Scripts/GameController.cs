@@ -1,6 +1,8 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 using System.Collections;
+using System;
+using UnityStandardAssets._2D;
 
 public class GameController : MonoBehaviour {
 	private static GameController _instance;
@@ -32,8 +34,8 @@ public class GameController : MonoBehaviour {
 
 	public GameObject Player;
 	public Text ScoreText;
-	public int Distance = 0;
-	public int Currency = 0;
+	private int Distance = 0;
+	private int Currency = 0;
 
 	void Update()
 	{
@@ -43,37 +45,68 @@ public class GameController : MonoBehaviour {
 			UpdateScoreText ();
 		}
 	}
+	public void PrepareMainScene()
+	{
+		ChangeMenuStateOfMenuWithName (false, "GameOver");
+		ChangeMenuStateOfMenuWithName (false, "PauseMenu");
+		ChangeMovementState (true);
+	}
+	public void ResetMainScene()
+	{
+		this.Player = GameObject.Find ("Player");
+		this.Currency = 0;
+		this.Distance = 0;
+		this.ScoreText = GetChildWithNameOfGameObject("Score", GameObject.Find ("Canvas")).GetComponent<Text>();
+	}
 
 	public void GameOver()
 	{
-		Application.LoadLevel (1);
+		ChangeMovementState (false);
+		ChangeMenuStateOfMenuWithName (true, "GameOver");
+		GameObject gameOverMenu = GetChildWithNameOfGameObject ("GameOver", GameObject.Find ("Canvas"));
+		GetChildWithNameOfGameObject("Score", gameOverMenu).GetComponent<Text> ().text = "Score: " + (Distance + Currency *100);
+		GetChildWithNameOfGameObject ("Coins", gameOverMenu).GetComponent<Text> ().text = "Coins: " + Currency;
+		GetChildWithNameOfGameObject("Distance", gameOverMenu).GetComponent<Text> ().text = "Distance: " +Distance;
 
 	}
 	void OnLevelWasLoaded(int level)
 	{
-		if (level == 1 || level == 0) 
+		if (level == 1) 
 		{
-			Transform[] ts = GameObject.Find ("Canvas").transform.GetComponentsInChildren<Transform> (true);
-			foreach (Transform t in ts)
-				if (t.gameObject.name == "Score")
-					this.ScoreText = t.gameObject.GetComponent<Text> ();
-			UpdateScoreText ();
-			this.Player = GameObject.Find("Player");
-			this.Distance = 0;
-			this.Currency = 0;
-		} 
+			ResetMainScene();
+			PrepareMainScene();
+		}
 	}
 	public void StartGame()
 	{
-		Application.LoadLevel (0);
+		Application.LoadLevel (1);
 	}
 	public void OpenMenu()
 	{
-		Application.LoadLevel (2);
+		Application.LoadLevel (0);
 	}
 	public void StartMultiplayer()
 	{
 
+	}
+	public void Pause()
+	{
+		ChangeMovementState (false);
+		ChangeMenuStateOfMenuWithName (true, "PauseMenu");
+	}
+	public void ChangeMenuStateOfMenuWithName(bool state, string menu)
+	{
+		GameObject menuobject = GetChildWithNameOfGameObject(menu, GameObject.Find ("Canvas"));
+		menuobject.SetActive (state);
+		GameObject dimmingScreen = GetChildWithNameOfGameObject ("DimmingScreen", GameObject.Find ("Canvas"));
+		dimmingScreen.SetActive (state);
+	}
+	public void ChangeMovementState(bool state)
+	{
+		GameObject player = GameObject.Find ("Player");
+		player.GetComponent<Platformer2DUserControl> ().move = state;
+		GetChildWithNameOfGameObject ("ObstacleSpawner", GameObject.Find ("Main Camera")).GetComponent<Spawner> ().spawnObjects = state;
+		GetChildWithNameOfGameObject ("EnemySpawner", GameObject.Find ("Main Camera")).GetComponent<Spawner> ().spawnObjects = state;
 	}
 	public void ChangeDistance(int amount)
 	{
@@ -88,6 +121,14 @@ public class GameController : MonoBehaviour {
 	public void UpdateScoreText()
 	{
 		ScoreText.text = "Score: " + (Distance + Currency * 100);
+	}
+	private GameObject GetChildWithNameOfGameObject(string child, GameObject parent)
+	{
+		Transform[] ts = parent.transform.GetComponentsInChildren<Transform> (true);
+		foreach (Transform t in ts)
+			if (t.gameObject.name == child)
+				return t.gameObject;
+		return null;
 	}
 
 }

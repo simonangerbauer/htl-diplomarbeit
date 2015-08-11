@@ -1,0 +1,312 @@
+fileFormatVersion: 2
+guid: 33840d4b2592ed944a2d3678cf0c87d0
+timeCreated: 1439283408
+licenseType: Free
+TextureImporter:
+  fileIDToRecycleName:
+    21300000: SmallButtons_0
+    21300002: SmallButtons_1
+    21300004: SmallButtons_2
+    21300006: SmallButtons_3
+    21300008: SmallButtons_4
+    21300010: SmallButtons_5
+    21300012: SmallButtons_6
+    21300014: SmallButtons_7
+    21300016: SmallButtons_8
+    21300018: SmallButtons_9
+    21300020: SmallButtons_10
+    21300022: SmallButtons_11
+    21300024: SmallButtons_12
+    21300026: SmallButtons_13
+    21300028: SmallButtons_14
+    21300030: SmallButtons_15
+    21300032: SmallButtons_16
+    21300034: SmallButtons_17
+    21300036: SmallButtons_18
+    21300038: SmallButtons_19
+    21300040: SmallButtons_20
+    21300042: SmallButtons_21
+    21300044: SmallButtons_22
+  serializedVersion: 2
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 1
+    linearTexture: 0
+    correctGamma: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: .25
+    normalMapFilter: 0
+  isReadable: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 0
+  cubemapConvolution: 0
+  cubemapConvolutionSteps: 8
+  cubemapConvolutionExponent: 1.5
+  seamlessCubemap: 0
+  textureFormat: -1
+  maxTextureSize: 2048
+  textureSettings:
+    filterMode: -1
+    aniso: 16
+    mipBias: -1
+    wrapMode: 1
+  nPOTScale: 0
+  lightmap: 0
+  rGBM: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: .5, y: .5}
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spritePixelsToUnits: 100
+  alphaIsTransparency: 1
+  textureType: 8
+  buildTargetSettings:
+  - buildTarget: iPhone
+    maxTextureSize: 64
+    textureFormat: -3
+    compressionQuality: 50
+  spriteSheet:
+    sprites:
+    - name: SmallButtons_0
+      rect:
+        serializedVersion: 2
+        x: 155
+        y: 1801
+        width: 302
+        height: 315
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: SmallButtons_1
+      rect:
+        serializedVersion: 2
+        x: 590
+        y: 1801
+        width: 303
+        height: 315
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: SmallButtons_2
+      rect:
+        serializedVersion: 2
+        x: 1029
+        y: 1801
+        width: 302
+        height: 315
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: SmallButtons_3
+      rect:
+        serializedVersion: 2
+        x: 1464
+        y: 1801
+        width: 302
+        height: 315
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: SmallButtons_4
+      rect:
+        serializedVersion: 2
+        x: 1898
+        y: 1801
+        width: 302
+        height: 315
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: SmallButtons_5
+      rect:
+        serializedVersion: 2
+        x: 2336
+        y: 1810
+        width: 303
+        height: 315
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: SmallButtons_6
+      rect:
+        serializedVersion: 2
+        x: 2754
+        y: 403
+        width: 302
+        height: 1543
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: SmallButtons_7
+      rect:
+        serializedVersion: 2
+        x: 155
+        y: 1333
+        width: 302
+        height: 314
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: SmallButtons_8
+      rect:
+        serializedVersion: 2
+        x: 590
+        y: 1333
+        width: 303
+        height: 314
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: SmallButtons_9
+      rect:
+        serializedVersion: 2
+        x: 1029
+        y: 1333
+        width: 302
+        height: 314
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: SmallButtons_10
+      rect:
+        serializedVersion: 2
+        x: 1464
+        y: 1333
+        width: 302
+        height: 314
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: SmallButtons_11
+      rect:
+        serializedVersion: 2
+        x: 1898
+        y: 1333
+        width: 302
+        height: 314
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: SmallButtons_12
+      rect:
+        serializedVersion: 2
+        x: 2336
+        y: 407
+        width: 303
+        height: 1267
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: SmallButtons_13
+      rect:
+        serializedVersion: 2
+        x: 155
+        y: 862
+        width: 302
+        height: 315
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: SmallButtons_14
+      rect:
+        serializedVersion: 2
+        x: 590
+        y: 862
+        width: 303
+        height: 315
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: SmallButtons_15
+      rect:
+        serializedVersion: 2
+        x: 1029
+        y: 862
+        width: 302
+        height: 315
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: SmallButtons_16
+      rect:
+        serializedVersion: 2
+        x: 1464
+        y: 862
+        width: 302
+        height: 315
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: SmallButtons_17
+      rect:
+        serializedVersion: 2
+        x: 1898
+        y: 862
+        width: 302
+        height: 315
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: SmallButtons_18
+      rect:
+        serializedVersion: 2
+        x: 155
+        y: 407
+        width: 302
+        height: 315
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: SmallButtons_19
+      rect:
+        serializedVersion: 2
+        x: 590
+        y: 407
+        width: 303
+        height: 315
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: SmallButtons_20
+      rect:
+        serializedVersion: 2
+        x: 1024
+        y: 407
+        width: 303
+        height: 315
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: SmallButtons_21
+      rect:
+        serializedVersion: 2
+        x: 1464
+        y: 407
+        width: 302
+        height: 315
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: SmallButtons_22
+      rect:
+        serializedVersion: 2
+        x: 1898
+        y: 407
+        width: 302
+        height: 315
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+  spritePackingTag: 
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

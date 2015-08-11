@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 0f9de9e1a82c7f34082e5456a5f8a14c
-timeCreated: 1438865113
+guid: 9c9b790b2aecece47a3e9604295378ab
+timeCreated: 1439292662
 licenseType: Free
 TrueTypeFontImporter:
   serializedVersion: 2
-  fontSize: 16
+  fontSize: 100
   forceTextureCase: -2
   characterSpacing: 1
   characterPadding: 0
@@ -12,7 +12,7 @@ TrueTypeFontImporter:
   use2xBehaviour: 0
   fontNames: []
   customCharacters: 
-  fontRenderingMode: 0
+  fontRenderingMode: 1
   userData: 
   assetBundleName: 
   assetBundleVariant: 
