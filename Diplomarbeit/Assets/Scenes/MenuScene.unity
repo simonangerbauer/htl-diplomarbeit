@@ -234,7 +234,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 114262, guid: a7f4d34cc1dede5439695e9c80de3a0f, type: 2}
       propertyPath: m_Name
-      value: MenuButton (1)
+      value: Music
       objectReference: {fileID: 0}
     - target: {fileID: 11432618, guid: a7f4d34cc1dede5439695e9c80de3a0f, type: 2}
       propertyPath: m_Sprite
@@ -490,11 +490,11 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 22497280, guid: a7f4d34cc1dede5439695e9c80de3a0f, type: 2}
       propertyPath: m_AnchoredPosition.x
-      value: -79
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 22497280, guid: a7f4d34cc1dede5439695e9c80de3a0f, type: 2}
       propertyPath: m_AnchoredPosition.y
-      value: 40
+      value: 39
       objectReference: {fileID: 0}
     - target: {fileID: 22497280, guid: a7f4d34cc1dede5439695e9c80de3a0f, type: 2}
       propertyPath: m_SizeDelta.x
@@ -548,6 +548,10 @@ Prefab:
     - target: {fileID: 11461410, guid: a7f4d34cc1dede5439695e9c80de3a0f, type: 2}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
       value: StartGame
+      objectReference: {fileID: 0}
+    - target: {fileID: 114262, guid: a7f4d34cc1dede5439695e9c80de3a0f, type: 2}
+      propertyPath: m_Name
+      value: Multiplayer
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: a7f4d34cc1dede5439695e9c80de3a0f, type: 2}
@@ -649,6 +653,10 @@ Prefab:
       value: 
       objectReference: {fileID: 21300042, guid: 33840d4b2592ed944a2d3678cf0c87d0,
         type: 3}
+    - target: {fileID: 114262, guid: a7f4d34cc1dede5439695e9c80de3a0f, type: 2}
+      propertyPath: m_Name
+      value: Ranking
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: a7f4d34cc1dede5439695e9c80de3a0f, type: 2}
   m_IsPrefabParent: 0
@@ -698,11 +706,11 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 22497280, guid: a7f4d34cc1dede5439695e9c80de3a0f, type: 2}
       propertyPath: m_AnchoredPosition.x
-      value: -82.5
+      value: 1.52590001e-05
       objectReference: {fileID: 0}
     - target: {fileID: 22497280, guid: a7f4d34cc1dede5439695e9c80de3a0f, type: 2}
       propertyPath: m_AnchoredPosition.y
-      value: -92
+      value: -98
       objectReference: {fileID: 0}
     - target: {fileID: 22497280, guid: a7f4d34cc1dede5439695e9c80de3a0f, type: 2}
       propertyPath: m_SizeDelta.x
@@ -756,6 +764,10 @@ Prefab:
     - target: {fileID: 11461410, guid: a7f4d34cc1dede5439695e9c80de3a0f, type: 2}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
       value: StartGame
+      objectReference: {fileID: 0}
+    - target: {fileID: 114262, guid: a7f4d34cc1dede5439695e9c80de3a0f, type: 2}
+      propertyPath: m_Name
+      value: Multiplayer
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: a7f4d34cc1dede5439695e9c80de3a0f, type: 2}
@@ -926,7 +938,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 114262, guid: a7f4d34cc1dede5439695e9c80de3a0f, type: 2}
       propertyPath: m_Name
-      value: MenuButton (2)
+      value: Facebook
       objectReference: {fileID: 0}
     - target: {fileID: 11432618, guid: a7f4d34cc1dede5439695e9c80de3a0f, type: 2}
       propertyPath: m_Sprite
@@ -1025,6 +1037,10 @@ Prefab:
       value: 
       objectReference: {fileID: 21300022, guid: 33840d4b2592ed944a2d3678cf0c87d0,
         type: 3}
+    - target: {fileID: 114262, guid: a7f4d34cc1dede5439695e9c80de3a0f, type: 2}
+      propertyPath: m_Name
+      value: Sound
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: a7f4d34cc1dede5439695e9c80de3a0f, type: 2}
   m_IsPrefabParent: 0

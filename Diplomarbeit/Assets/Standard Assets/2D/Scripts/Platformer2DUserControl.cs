@@ -13,7 +13,8 @@ namespace UnityStandardAssets._2D
 		public float speed = 150f;
 		public bool move = true;
 
-        private PlatformerCharacter2D m_Character;
+		private bool shoot = true;
+		private PlatformerCharacter2D m_Character;
         private bool m_Jump;
 		private List<GameObject> bullets = new List<GameObject>();
 
@@ -32,7 +33,7 @@ namespace UnityStandardAssets._2D
 		}
 		public void Shoot()
 		{
-			if ((Input.mousePosition.x > Screen.width / 5 || Input.mousePosition.y > Screen.height / 2.5)&&(Input.mousePosition.x > 100 || Input.mousePosition.y < Screen.height - 100)) 
+			if ((Input.mousePosition.x > Screen.width / 5 || Input.mousePosition.y > Screen.height / 2.5)&&(Input.mousePosition.x > 60 || Input.mousePosition.y < Screen.height - 60)) 
 			{
 				Vector3 target = new Vector3(Input.mousePosition.x, Input.mousePosition.y, 0);
 				target = Camera.main.ScreenToWorldPoint(target);
@@ -48,7 +49,13 @@ namespace UnityStandardAssets._2D
 				obj.transform.position = transform.position;
 				obj.transform.rotation = transform.rotation;
 				obj.GetComponent<Rigidbody2D>().velocity = (target - transform.position).normalized * speed; 
+				shoot = false;
+				Invoke ("CanShootAgain",1f);
 			}
+		}
+		private void CanShootAgain()
+		{
+			shoot = true;
 		}
         private void Update()
         {
@@ -59,10 +66,14 @@ namespace UnityStandardAssets._2D
 					// Read the jump input in Update so button presses aren't missed.
 					m_Jump = CrossPlatformInputManager.GetButtonDown("Jump");
 				}
-				if (Input.GetMouseButtonDown (0)) 
+				if(shoot)
 				{
-					Shoot ();
+					if (Input.GetMouseButtonDown (0)) 
+					{
+						Shoot ();
+					}
 				}
+
 			}
         }
 

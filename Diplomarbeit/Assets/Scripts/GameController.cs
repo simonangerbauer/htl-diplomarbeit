@@ -49,6 +49,7 @@ public class GameController : MonoBehaviour {
 	{
 		ChangeMenuStateOfMenuWithName (false, "GameOver");
 		ChangeMenuStateOfMenuWithName (false, "PauseMenu");
+		Time.timeScale = 1.0f;
 		ChangeMovementState (true);
 	}
 	public void ResetMainScene()
@@ -61,7 +62,6 @@ public class GameController : MonoBehaviour {
 
 	public void GameOver()
 	{
-		ChangeMovementState (false);
 		ChangeMenuStateOfMenuWithName (true, "GameOver");
 		GameObject gameOverMenu = GetChildWithNameOfGameObject ("GameOver", GameObject.Find ("Canvas"));
 		GetChildWithNameOfGameObject("Score", gameOverMenu).GetComponent<Text> ().text = "Score: " + (Distance + Currency *100);
@@ -90,7 +90,8 @@ public class GameController : MonoBehaviour {
 
 	}
 	public void Pause()
-	{
+	{        
+		Time.timeScale = 0.0f;
 		ChangeMovementState (false);
 		ChangeMenuStateOfMenuWithName (true, "PauseMenu");
 	}
@@ -105,8 +106,6 @@ public class GameController : MonoBehaviour {
 	{
 		GameObject player = GameObject.Find ("Player");
 		player.GetComponent<Platformer2DUserControl> ().move = state;
-		GetChildWithNameOfGameObject ("ObstacleSpawner", GameObject.Find ("Main Camera")).GetComponent<Spawner> ().spawnObjects = state;
-		GetChildWithNameOfGameObject ("EnemySpawner", GameObject.Find ("Main Camera")).GetComponent<Spawner> ().spawnObjects = state;
 	}
 	public void ChangeDistance(int amount)
 	{
