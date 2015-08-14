@@ -25,3 +25,13 @@ sysinfo.txt
 .Trashes
 ehthumbs.db
 Thumbs.db
+
+*.pyc
+
+*.swp
+
+openstack-couchdb-provisioning/.couchdb.info
+
+openstack-couchdb-provisioning/couchdb-ssh
+
+openstack-couchdb-provisioning/couchdb-ssh.pub
