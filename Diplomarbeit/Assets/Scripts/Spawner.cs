@@ -20,25 +20,25 @@ public class Spawner : MonoBehaviour {
 
 	void Spawn()
 	{
-		if (spawnObjects) {
-			for (int i = 0; i < objects.Count; i++) {
-				GameObject temp = objects [i];
-				int randomIndex = Random.Range (i, objects.Count);
-				objects [i] = objects [randomIndex];
-				objects [randomIndex] = temp;
-			}
-			GameObject obj = objects.FirstOrDefault (x => !x.activeInHierarchy);
-			if (obj == null) {
-				for (int i = 0; i < possibleOjects.GetLength(0); i++) {
-					GameObject tmp = (GameObject)Instantiate (possibleOjects [i]);
-					tmp.SetActive (false);
-					objects.Add (tmp);
-					obj = tmp;
-				}
-			}
-			obj.transform.position = new Vector3 (gameObject.transform.position.x, obj.transform.position.y, 0);
-			obj.SetActive (true);
+		for (int i = 0; i < objects.Count; i++) 
+		{
+			GameObject temp = objects [i];
+			int randomIndex = Random.Range (i, objects.Count);
+			objects [i] = objects [randomIndex];
+			objects [randomIndex] = temp;
 		}
+		GameObject obj = objects.FirstOrDefault (x => !x.activeInHierarchy);
+		if (obj == null) 
+		{
+			for (int i = 0; i < possibleOjects.GetLength(0); i++) {
+				GameObject tmp = (GameObject)Instantiate (possibleOjects [i]);
+				tmp.SetActive (false);
+				objects.Add (tmp);
+				obj = tmp;
+			}
+		}
+		obj.transform.position = new Vector3 (gameObject.transform.position.x, obj.transform.position.y, 0);
+		obj.SetActive (true);
 		Invoke ("Spawn", Random.Range(spawnMin, spawnMax));
 	}
 }

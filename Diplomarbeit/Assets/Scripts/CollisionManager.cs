@@ -20,7 +20,7 @@ public class CollisionManager : MonoBehaviour {
 			if(other.tag == "Enemy")
 			{
 				other.gameObject.SetActive(false);
-				GameController.instance.ChangeCurrency(1);
+				GameController.instance.ChangeCurrency(10);
 			}
 			gameObject.SetActive(false);
 			isCollided = false;

@@ -34,6 +34,7 @@ public class GameController : MonoBehaviour {
 
 	public GameObject Player;
 	public Text ScoreText;
+    public Text CoinText;
 	private int Distance = 0;
 	private int Currency = 0;
 
@@ -58,16 +59,17 @@ public class GameController : MonoBehaviour {
 		this.Currency = 0;
 		this.Distance = 0;
 		this.ScoreText = GetChildWithNameOfGameObject("Score", GameObject.Find ("Canvas")).GetComponent<Text>();
+        this.CoinText = GetChildWithNameOfGameObject("Coin", GetChildWithNameOfGameObject("Coins", GameObject.Find("Canvas"))).GetComponent<Text>();
 	}
 
 	public void GameOver()
 	{
 		ChangeMenuStateOfMenuWithName (true, "GameOver");
 		GameObject gameOverMenu = GetChildWithNameOfGameObject ("GameOver", GameObject.Find ("Canvas"));
-		GetChildWithNameOfGameObject("Score", gameOverMenu).GetComponent<Text> ().text = "Score: " + (Distance + Currency *100);
+		GetChildWithNameOfGameObject("Score", gameOverMenu).GetComponent<Text> ().text = "Score: " + (Distance + Currency *10);
 		GetChildWithNameOfGameObject ("Coins", gameOverMenu).GetComponent<Text> ().text = "Coins: " + Currency;
 		GetChildWithNameOfGameObject("Distance", gameOverMenu).GetComponent<Text> ().text = "Distance: " +Distance;
-
+        Time.timeScale = 0.0f;
 	}
 	void OnLevelWasLoaded(int level)
 	{
@@ -119,7 +121,8 @@ public class GameController : MonoBehaviour {
 	}
 	public void UpdateScoreText()
 	{
-		ScoreText.text = "Score: " + (Distance + Currency * 100);
+		ScoreText.text = "Score: " + (Distance + Currency * 10);
+        CoinText.text = "" + Currency;
 	}
 	private GameObject GetChildWithNameOfGameObject(string child, GameObject parent)
 	{
