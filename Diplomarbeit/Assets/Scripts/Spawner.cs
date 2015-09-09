@@ -9,6 +9,7 @@ public class Spawner : MonoBehaviour {
 	public float spawnMax = 2.0f;
 	public GameObject[] possibleOjects;
 	public bool spawnObjects = true;
+	public int Seed;
 
 	List<GameObject> objects;
 	// Use this for initialization
@@ -23,6 +24,14 @@ public class Spawner : MonoBehaviour {
 		for (int i = 0; i < objects.Count; i++) 
 		{
 			GameObject temp = objects [i];
+			if(Seed != null)
+			{
+				Random.seed = Seed;
+			}
+			else
+			{
+				Random.seed = System.Environment.TickCount; 
+			}
 			int randomIndex = Random.Range (i, objects.Count);
 			objects [i] = objects [randomIndex];
 			objects [randomIndex] = temp;
