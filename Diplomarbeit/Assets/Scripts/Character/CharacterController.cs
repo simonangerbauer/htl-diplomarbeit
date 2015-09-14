@@ -3,6 +3,14 @@ using System.Collections;
 
 public class CharacterController : MonoBehaviour {
     public float MaxSpeed = 10f;
+	public float MaxJump = 10f;
+
+	public Transform GroundCheck;
+	public float GroundCheckRadius;
+	public LayerMask  WhatIsGround;
+	private bool grounded = false;
+	private bool jumping = false;
+
 
     bool facingRight = true;
     Animator anim;
@@ -16,11 +24,32 @@ public class CharacterController : MonoBehaviour {
 
     void FixedUpdate()
     {
-        float move = Input.GetAxis("Horizontal");
+		//Reading player movement
+		float horizontalMovement = Input.GetAxis ("Horizontal");
 
-        anim.SetFloat("Speed", Mathf.Abs(move));
-        rigidBody.velocity = new Vector2(move * MaxSpeed, rigidBody.velocity.y);
-		rigidBody.AddForce (Vector2.right * MaxSpeed * move);
+		//Setting player movement animation
+		anim.SetFloat ("Speed", Mathf.Abs (horizontalMovement));
+
+		//Player movement
+		if(horizontalMovement > 0 ){
+			rigidBody.velocity = new Vector2(MaxSpeed * horizontalMovement, rigidBody.velocity.y);
+		}
+
+		if(horizontalMovement < 0){
+			rigidBody.velocity = new Vector2(MaxSpeed * horizontalMovement, rigidBody.velocity.y);
+		}
+
+		//Check if player grounded
+		grounded = Physics2D.OverlapCircle (GroundCheck.position, GroundCheckRadius, WhatIsGround);
+		anim.SetBool ("Grounded", grounded);
+
+		//Player jump
+		if(Input.GetAxis ("Jump") > 0 && grounded) {
+			rigidBody.AddForce (new Vector2(0,MaxJump));
+			anim.SetTrigger("OnJump");
+			jumping = true;
+		}
+
 
     }
 
