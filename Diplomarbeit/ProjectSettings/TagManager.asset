@@ -23,13 +23,13 @@ TagManager:
   - UI
   - 
   - 
-  - Player
-  - Enemy
-  - Bullet (Player)
-  - Bullet (Enemy)
-  - DestoyArea
-  - Scenery
-  - Columns
+  - Ground
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
   - 
   - 
   - 
