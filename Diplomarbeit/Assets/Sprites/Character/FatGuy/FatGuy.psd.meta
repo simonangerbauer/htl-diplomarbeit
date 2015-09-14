@@ -1,6 +1,6 @@
 fileFormatVersion: 2
 guid: 0e5d63acf6c1e8840a95fd8f56b195e8
-timeCreated: 1440520490
+timeCreated: 1442216607
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
@@ -47,6 +47,7 @@ TextureImporter:
   lightmap: 0
   rGBM: 0
   compressionQuality: 50
+  allowsAlphaSplitting: 0
   spriteMode: 2
   spriteExtrude: 1
   spriteMeshType: 1
@@ -126,8 +127,8 @@ TextureImporter:
         y: 1906
         width: 508
         height: 879
-      alignment: 0
-      pivot: {x: .5, y: .5}
+      alignment: 9
+      pivot: {x: .35752809, y: .986190915}
       border: {x: 0, y: 0, z: 0, w: 0}
     - name: Trousers
       rect:
