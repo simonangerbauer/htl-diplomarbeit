@@ -361,31 +361,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1f7c9eb5918aece4ab844761c6843108, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  FriendSelectorTitle: 
-  FriendSelectorMessage: Derp
-  FriendSelectorData: '{}'
-  FriendSelectorExcludeIds: 
-  FriendSelectorMax: 
-  DirectRequestTitle: 
-  DirectRequestMessage: Herp
-  FeedToId: 
-  FeedLink: 
-  FeedLinkName: 
-  FeedLinkCaption: 
-  FeedLinkDescription: 
-  FeedPicture: 
-  FeedMediaSource: 
-  FeedActionName: 
-  FeedActionLink: 
-  FeedReference: 
-  IncludeFeedProperties: 0
-  PayProduct: 
-  Width: 800
-  Height: 600
-  CenterHorizontal: 1
-  CenterVertical: 0
-  Top: 10
-  Left: 10
 --- !u!4 &698175900
 Transform:
   m_ObjectHideFlags: 0
@@ -645,6 +620,10 @@ Prefab:
       propertyPath: m_Name
       value: Singleplayer
       objectReference: {fileID: 0}
+    - target: {fileID: 11431242, guid: 7168e353404e92944a59cc80b270e6f8, type: 2}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: InitAndLoginFacebook
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 7168e353404e92944a59cc80b270e6f8, type: 2}
   m_IsPrefabParent: 0
@@ -841,7 +820,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 142288, guid: c5a749e18e3b021489fb12b9dfa77bcc, type: 2}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: c5a749e18e3b021489fb12b9dfa77bcc, type: 2}

@@ -32,7 +32,7 @@ public class GameController : MonoBehaviour {
 			_instance = temp;
 			if (Level == 0) {
 				CloseMultiplayerMenu();
-				InitAndLoginFacebook();
+				//InitAndLoginFacebook();
 			}
 			DontDestroyOnLoad (this.gameObject);
 			DontDestroyOnLoad(this);
@@ -267,14 +267,18 @@ public class GameController : MonoBehaviour {
 	}
 	public void InitAndLoginFacebook()
 	{
+		/*
 		if (!FB.IsInitialized)
-			FacebookManager.instance.CallFBInit ();
+			FacebookManager.instance.CallFBUnit();
 		else if (!FB.IsLoggedIn) {
-			FacebookManager.instance.CallFBLogin ();
+			//FacebookManager.instance.CallFBLogin ();
 		} else 
 		{
 			GetPlayerDataOrCreateNew(FB.UserId);
 		}
+		*/
+
+		FacebookManager.instance.OnInitAndLogin();
 			
 	}
 	public void StartMatch(string id)
