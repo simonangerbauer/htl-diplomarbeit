@@ -80,7 +80,9 @@ public class FacebookManager : MonoBehaviour {
 	
 	void OnLoggedIn()                                                                          
 	{                                                                                          
-		Util.Log("Logged in. ID: " + FB.UserId);                                            
-	}        
+		Util.Log("Logged in. ID: " + FB.UserId);
+
+        GameController.Instance.GetPlayerDataOrCreateNew(FB.UserId);
+    }        
 
 }
