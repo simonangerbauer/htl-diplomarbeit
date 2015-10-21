@@ -70,7 +70,7 @@ public class GameController : MonoBehaviour {
 		ChangeMenuStateOfMenuWithName (false, "GameOver");
 		ChangeMenuStateOfMenuWithName (false, "PauseMenu");
 		Time.timeScale = 1.0f;
-		ChangeMovementState (true);
+		//ChangeMovementState (true);
 	}
 	public void ResetMainScene()
 	{
@@ -222,7 +222,7 @@ public class GameController : MonoBehaviour {
 	public void Pause()
 	{        
 		Time.timeScale = 0.0f;
-		ChangeMovementState (false);
+		//ChangeMovementState (false);
 		ChangeMenuStateOfMenuWithName (true, "PauseMenu");
 	}
 	public void ChangeMenuStateOfMenuWithName(bool state, string menu)
@@ -234,8 +234,8 @@ public class GameController : MonoBehaviour {
 	}
 	public void ChangeMovementState(bool state)
 	{
-		GameObject player = GameObject.Find ("Player");
-		player.GetComponent<Platformer2DUserControl> ().move = state;
+		//GameObject player = GameObject.Find ("Player");
+		//player.GetComponent<Platformer2DUserControl> ().move = state;
 	}
 	public void ChangeDistance(int amount)
 	{

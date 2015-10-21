@@ -2,14 +2,18 @@
 using System.Collections;
 
 public class CharacterController : MonoBehaviour {
-    public float MaxSpeed = 10f;
-	public float MaxJump = 10f;
+    public float MaxSpeed = 1f;
+	public float MaxJump = 1f;
 
 	public Transform GroundCheck;
 	public float GroundCheckRadius;
 	public LayerMask  WhatIsGround;
+    public bool runActivated;
+
 	private bool grounded = false;
-	private bool jumping = false;
+	private bool JumpPressed = false;
+
+    public static float DEFAULT_MOVEMENT_RIGHT = 1f;
 
 
     bool facingRight = true;
@@ -24,33 +28,43 @@ public class CharacterController : MonoBehaviour {
 
     void FixedUpdate()
     {
-		//Reading player movement
-		float horizontalMovement = Input.GetAxis ("Horizontal");
+        //Reading player movement
+        float horizontalMovement = (!runActivated) ? Input.GetAxis("Horizontal") : 1;
 
-		//Setting player movement animation
-		anim.SetFloat ("Speed", Mathf.Abs (horizontalMovement));
+        //Check if player grounded
+        grounded = Physics2D.OverlapCircle(GroundCheck.position, GroundCheckRadius, WhatIsGround);
+        anim.SetBool("Grounded", grounded);
 
-		//Player movement
-		if(horizontalMovement > 0 ){
-			rigidBody.velocity = new Vector2(MaxSpeed * horizontalMovement, rigidBody.velocity.y);
-		}
+        //Setting player movement animation
+        anim.SetFloat("Speed", Mathf.Abs(horizontalMovement));
 
-		if(horizontalMovement < 0){
-			rigidBody.velocity = new Vector2(MaxSpeed * horizontalMovement, rigidBody.velocity.y);
-		}
+        //Player movement
+        if (runActivated)
+        {
+            Move(CharacterController.DEFAULT_MOVEMENT_RIGHT);
+        }
+        else
+        {
+            Move(horizontalMovement);
+        }
 
-		//Check if player grounded
-		grounded = Physics2D.OverlapCircle (GroundCheck.position, GroundCheckRadius, WhatIsGround);
-		anim.SetBool ("Grounded", grounded);
+        //Player jump
+        if ((Input.GetAxis("Jump") > 0 || JumpPressed) && grounded )
+        {
+            rigidBody.AddForce(new Vector2(0, MaxJump));
+            anim.SetTrigger("OnJump");
+            JumpPressed = false;
+        }
+    }
 
-		//Player jump
-		if(Input.GetAxis ("Jump") > 0 && grounded) {
-			rigidBody.AddForce (new Vector2(0,MaxJump));
-			anim.SetTrigger("OnJump");
-			jumping = true;
-		}
+    private void Move(float movement)
+    {
+        rigidBody.velocity = new Vector2(MaxSpeed * movement, rigidBody.velocity.y);
+    }
 
-
+    public void Jump()
+    {
+        JumpPressed = true;
     }
 
     // Update is called once per frame
