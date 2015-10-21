@@ -74,7 +74,7 @@ public class GameController : MonoBehaviour {
 	}
 	public void ResetMainScene()
 	{
-		this.Player = GameObject.Find ("Player");
+		this.Player = GameObject.Find ("FatCharacter");
 		this.Currency = 0;
 		this.Distance = 0;
 		this.ScoreText = GetChildWithNameOfGameObject("Score", GameObject.Find ("Canvas")).GetComponent<Text>();
