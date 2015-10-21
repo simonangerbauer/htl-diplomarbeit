@@ -502,7 +502,7 @@ Prefab:
     m_Modifications:
     - target: {fileID: 400002, guid: 87a2357765801c34292d6718d8b4d770, type: 2}
       propertyPath: m_LocalPosition.x
-      value: -5
+      value: -7.94999981
       objectReference: {fileID: 0}
     - target: {fileID: 400002, guid: 87a2357765801c34292d6718d8b4d770, type: 2}
       propertyPath: m_LocalPosition.y
@@ -1997,6 +1997,14 @@ Prefab:
     - target: {fileID: 140858, guid: bd2c9dd0a90c4344abb9af9542a6a9f4, type: 2}
       propertyPath: m_TagString
       value: Player
+      objectReference: {fileID: 0}
+    - target: {fileID: 11426030, guid: bd2c9dd0a90c4344abb9af9542a6a9f4, type: 2}
+      propertyPath: bullet
+      value: 
+      objectReference: {fileID: 127602, guid: 25302f6c577602e4fbb4968877255539, type: 2}
+    - target: {fileID: 11426030, guid: bd2c9dd0a90c4344abb9af9542a6a9f4, type: 2}
+      propertyPath: speed
+      value: 50
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: bd2c9dd0a90c4344abb9af9542a6a9f4, type: 2}
