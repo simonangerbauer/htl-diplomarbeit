@@ -251,7 +251,7 @@ public class GameController : MonoBehaviour {
 	public void UpdateScoreText()
 	{
 		ScoreText.text = "Score: " + (Distance + Currency * 10);
-        CoinText.text = "" + this.PlayerData.Coins;
+        //CoinText.text = "" + this.PlayerData.Coins;
 	}
 	private GameObject GetChildWithNameOfGameObject(string child, GameObject parent)
 	{
