@@ -85,19 +85,39 @@ public class FacebookManager : MonoBehaviour {
 	{                                                                                          
 		Util.Log("Logged in. ID: " + FB.UserId);
 
-        //Try to get Picture
-        FB.API("me/picture", Facebook.HttpMethod.GET, GetPicture);
+        //Try to get and set picture
+        FB.API("me/picture", Facebook.HttpMethod.GET, GetPictureCallback);
+
+        //Try to get and set name
+        FB.API("me?fields=name", Facebook.HttpMethod.GET, GetNameCallback);
 
         //GameController.Instance.GetPlayerDataOrCreateNew(FB.UserId);
     }
 
-    private void GetPicture(FBResult result)
+    private void GetPictureCallback(FBResult result)
     {
         if (result.Error == null)
-        {          
-            GameObject obj = GetChildWithNameOfGameObject("UserProfilePic", GameObject.Find("Canvas"));
-            var img = obj.GetComponent<Image>();
-            img.sprite = Sprite.Create(result.Texture, new Rect(0,0, 50, 50), new Vector2());         
+        {
+            GameObject signedInMenu = GetChildWithNameOfGameObject("SignedInMenu", GameObject.Find("Canvas"));
+            GameObject profilePicture = GetChildWithNameOfGameObject("Player_ProfilePic", signedInMenu);
+
+            var img = profilePicture.GetComponent<Image>();
+            img.sprite = Sprite.Create(result.Texture, new Rect(0,0, 50, 50), new Vector2());
+        }
+    }
+
+    private void GetNameCallback(FBResult result)
+    {
+        if (result.Error == null)
+        {
+            GameObject signedInMenu = GetChildWithNameOfGameObject("SignedInMenu", GameObject.Find("Canvas"));
+            GameObject name = GetChildWithNameOfGameObject("Player_Name", signedInMenu);
+
+            IDictionary dict = Facebook.MiniJSON.Json.Deserialize(result.Text) as IDictionary;
+            var fbname = dict["name"].ToString();
+
+            var txt = name.GetComponent<Text>();
+            txt.text = fbname;
         }
     }
 
