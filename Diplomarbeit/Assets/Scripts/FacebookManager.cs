@@ -1,8 +1,10 @@
 ﻿using UnityEngine;
+using Facebook;
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using UnityEngine.UI;
 
 public class FacebookManager : MonoBehaviour {
 	private static FacebookManager _instance;
@@ -40,6 +42,7 @@ public class FacebookManager : MonoBehaviour {
 
 	public void OnInitAndLogin(){
 		FB.Login("email,publish_actions", LoginCallback); 
+
 	}
 
 	private void SetInit()                                                                       
@@ -75,14 +78,35 @@ public class FacebookManager : MonoBehaviour {
 		if (FB.IsLoggedIn)                                                                     
 		{                                                                                      
 			OnLoggedIn();                                                                      
-		}                                                                                      
+		}                                                                                 
 	}                                                                                          
 	
 	void OnLoggedIn()                                                                          
 	{                                                                                          
 		Util.Log("Logged in. ID: " + FB.UserId);
 
-        GameController.Instance.GetPlayerDataOrCreateNew(FB.UserId);
-    }        
+        //Try to get Picture
+        FB.API("me/picture", Facebook.HttpMethod.GET, GetPicture);
 
+        //GameController.Instance.GetPlayerDataOrCreateNew(FB.UserId);
+    }
+
+    private void GetPicture(FBResult result)
+    {
+        if (result.Error == null)
+        {          
+            GameObject obj = GetChildWithNameOfGameObject("UserProfilePic", GameObject.Find("Canvas"));
+            var img = obj.GetComponent<Image>();
+            img.sprite = Sprite.Create(result.Texture, new Rect(0,0, 50, 50), new Vector2());         
+        }
+    }
+
+    private GameObject GetChildWithNameOfGameObject(string child, GameObject parent)
+    {
+        Transform[] ts = parent.transform.GetComponentsInChildren<Transform>(true);
+        foreach (Transform t in ts)
+            if (t.gameObject.name == child)
+                return t.gameObject;
+        return null;
+    }
 }
