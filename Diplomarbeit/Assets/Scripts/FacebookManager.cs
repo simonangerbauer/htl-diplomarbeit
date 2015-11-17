@@ -83,7 +83,7 @@ public class FacebookManager : MonoBehaviour {
 	
 	void OnLoggedIn()                                                                          
 	{                                                                                          
-		Util.Log("Logged in. ID: " + FB.UserId);
+		Util.Log("Logged in. Unique UserID: " + FB.UserId);
 
         //Try to get and set picture
         FB.API("me/picture", Facebook.HttpMethod.GET, GetPictureCallback);
