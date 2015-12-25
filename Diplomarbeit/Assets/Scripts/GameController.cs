@@ -30,10 +30,6 @@ public class GameController : MonoBehaviour {
 		if (_instance == null) {
 			GameController temp = GameObject.FindObjectOfType<GameController>();
 			_instance = temp;
-			if (Level == 0) {
-				CloseMultiplayerMenu();
-				//InitAndLoginFacebook();
-			}
 			DontDestroyOnLoad (this.gameObject);
 			DontDestroyOnLoad(this);
 		} 
@@ -46,12 +42,10 @@ public class GameController : MonoBehaviour {
 	}
 
 
-	public List<GameObject> MatchListItemPrefabs;
 
 	private int Distance = 0;
 	private int Currency = 0;
 	private Player PlayerData;
-	private int Level = 0;
 	private GameObject Player;
 	private Text ScoreText;
 	private Text CoinText;
@@ -115,7 +109,6 @@ public class GameController : MonoBehaviour {
 		{
 			ResetMainScene();
 			PrepareMainScene();
-			Level = 1;
 			if(ActiveMatch != null)
 			{
 				GameObject cam = GameObject.Find ("Main Camera");
@@ -123,102 +116,13 @@ public class GameController : MonoBehaviour {
 				GetChildWithNameOfGameObject("ObstacleSpawner", cam).GetComponent<Spawner>().Seed = ActiveMatch.Seed;
 			}
 		}
-		if (level == 0) 
-		{
-			ActiveMatch = null;
-			PrepareMenuScene();
-			CloseMultiplayerMenu();
-			Level = 0;
-		}
 	}
-	public void StartGame()
-	{
-		this.ActiveMatch = null;
-		Application.LoadLevel (1);
-	}
+
 	public void OpenMenu()
 	{
 		Application.LoadLevel (0);
 	}
-	public 	void OpenMultiplayerMenu()
-	{
-		if (FB.IsLoggedIn) {
-			GameObject menu;
-			menu = GetChildWithNameOfGameObject ("MultiplayerMenu", GameObject.Find ("Canvas"));
-			menu.SetActive (true);
-			List<Match> matches = ConnectionManager.instance.GetMatchesForPlayerId (FB.UserId);
-			int scrollContentHeight = 0;
-			foreach (Match m in matches) 
-			{
-				GameObject childObject;
-				if(m.Winner == "none")
-				{
-					if(m.ChallengerId == FB.UserId)
-					{
-						//Instantiate ChallengerItem
-						childObject = Instantiate(MatchListItemPrefabs[0]) as GameObject;
-					}
-					else
-					{
-						//Instantiate ChallengedItem
-						childObject = Instantiate(MatchListItemPrefabs[1]) as GameObject;
-					}
-				}
-				else
-				{
-					if(m.Winner == FB.UserId)
-					{
-						//Instantiate WonItem
-						childObject = Instantiate(MatchListItemPrefabs[2]) as GameObject;
-					}
-					else
-					{
-						//Instantiate LostItem
-						childObject = Instantiate(MatchListItemPrefabs[3]) as GameObject;
-					}
-				}
-				if(childObject != null)
-				{
-					GameObject scrollContent = GetChildWithNameOfGameObject("ScrollContent", GetChildWithNameOfGameObject("ScrollRect",GetChildWithNameOfGameObject("MultiplayerMenu",GameObject.Find ("Canvas"))));
-					childObject.transform.SetParent(scrollContent.transform);
-					childObject.transform.localScale = Vector3.one;
-					//childObject.GetComponent<RectTransform>().offsetMax = new Vector2(0,scrollContentHeight*-1);
-					//childObject.GetComponent<RectTransform>().offsetMin = new Vector2(0,scrollContentHeight*-1);
-					childObject.GetComponent<RectTransform>().anchoredPosition = new Vector2 (0,(scrollContentHeight+	45)*-1);
-					scrollContentHeight += 97;
-					scrollContent.GetComponent<RectTransform>().sizeDelta = new Vector2(0, scrollContentHeight);
-					GameObject playButton = GetChildWithNameOfGameObject("Play", childObject);
-					if(playButton)
-					{
-						Button b = playButton.GetComponent<Button>();
-						b.onClick.AddListener(delegate{ StartMatch(m.Id);});
-					}
-					//GetChildWithNameOfGameObject("Opponent",childObject).GetComponent<Image>().sprite = new Sprite(); //TODO:Load Facebook Image and replace new Sprite() with it
-					if(m.ChallengerId == FB.UserId)
-					{
-						GetChildWithNameOfGameObject("OpponentScore",childObject).GetComponent<Text>().text = "Score: "+m.ChallengedScore;
-						GetChildWithNameOfGameObject("PlayerScore",childObject).GetComponent<Text>().text = "Your Score: "+m.ChallengerScore;
-						GetChildWithNameOfGameObject("FacebookName",childObject).GetComponent<Text>().text = m.ChallengedId;//TODO:Load Facebook Name and replace PlayerId with it
-					}
-					else
-					{
-						GetChildWithNameOfGameObject("OpponentScore",childObject).GetComponent<Text>().text = "Score: "+m.ChallengerScore;
-						GetChildWithNameOfGameObject("PlayerScore",childObject).GetComponent<Text>().text = "Your Score: "+m.ChallengedScore;
-						GetChildWithNameOfGameObject("FacebookName",childObject).GetComponent<Text>().text = m.ChallengerId;//TODO:Load Facebook Name and replace PlayerId with it
-					}
-				}
-			}
-		}
-		else
-			InitAndLoginFacebook ();
-		
-	}
-	public 	void CloseMultiplayerMenu()
-	{	
-		GameObject menu;
-		menu = GetChildWithNameOfGameObject ("MultiplayerMenu", GameObject.Find ("Canvas"));
-		menu.SetActive (false);
-	}
+
 	public void Pause()
 	{        
 		Time.timeScale = 0.0f;
@@ -261,31 +165,6 @@ public class GameController : MonoBehaviour {
 				return t.gameObject;
 		return null;
 	}
-	public void GetPlayerDataOrCreateNew(string id)
-	{
-		this.PlayerData = ConnectionManager.instance.GetPlayerDataForId (id);
-	}
-	public void InitAndLoginFacebook()
-	{
-		/*
-		if (!FB.IsInitialized)
-			FacebookManager.instance.CallFBUnit();
-		else if (!FB.IsLoggedIn) {
-			//FacebookManager.instance.CallFBLogin ();
-		} else 
-		{
-			GetPlayerDataOrCreateNew(FB.UserId);
-		}
-		*/
-
-		FacebookManager.instance.OnInitAndLogin();
-			
-	}
-	public void StartMatch(string id)
-	{
-		ActiveMatch = ConnectionManager.instance.GetMatchForId(id);
-		Application.LoadLevel (1);
-	}
 	public void ChangeMenuInteractivity(bool interactive)
 	{
 		GameObject menu = GetChildWithNameOfGameObject ("Menu", GameObject.Find ("Canvas"));
@@ -296,10 +175,5 @@ public class GameController : MonoBehaviour {
 				b.interactable = interactive;
 			}
 		}
-	}
-
-	public void PrepareMenuScene()
-	{
-		GetChildWithNameOfGameObject("Multiplayer",GetChildWithNameOfGameObject ("Menu", GameObject.Find ("Canvas"))).GetComponent<Button>().onClick.AddListener(delegate{OpenMultiplayerMenu();});
 	}
 }

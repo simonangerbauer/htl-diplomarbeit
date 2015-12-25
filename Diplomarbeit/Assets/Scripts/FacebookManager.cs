@@ -6,6 +6,8 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine.UI;
 
+public delegate void OnLoggedInDelegate();
+
 public class FacebookManager : MonoBehaviour {
 	private static FacebookManager _instance;
 	private FacebookManager()
@@ -24,7 +26,11 @@ public class FacebookManager : MonoBehaviour {
 			return _instance;
 		}
 	}
-	void Awake()
+
+    public OnLoggedInDelegate OnLoggedInDelegate { get; set; }
+    public string Name { get; set; }
+
+    void Awake()
 	{
 		if (_instance == null) {
 			_instance = this;
@@ -39,8 +45,7 @@ public class FacebookManager : MonoBehaviour {
 
 		FB.Init(SetInit, OnHideUnity);
 	}
-
-	public void OnInitAndLogin(){
+    public void OnInitAndLogin(){
 		FB.Login("email,publish_actions", LoginCallback); 
 
 	}
@@ -77,12 +82,11 @@ public class FacebookManager : MonoBehaviour {
 		
 		if (FB.IsLoggedIn)                                                                     
 		{                                                                                      
-			OnLoggedIn();                                                                      
+			OnLoggedIn();                                                       
 		}                                                                                 
 	}                                                                                          
-	
 	void OnLoggedIn()                                                                          
-	{                                                                                          
+	{                                                                               
 		Util.Log("Logged in. Unique UserID: " + FB.UserId);
 
         //Try to get and set picture
@@ -92,7 +96,9 @@ public class FacebookManager : MonoBehaviour {
         FB.API("me?fields=name", Facebook.HttpMethod.GET, GetNameCallback);
 
         //GameController.Instance.GetPlayerDataOrCreateNew(FB.UserId);
+        OnLoggedInDelegate();
     }
+	
 
     private void GetPictureCallback(FBResult result)
     {
