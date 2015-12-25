@@ -87,11 +87,15 @@ public class MainMenuController : MonoBehaviour {
         else
         {
             LoginController login = GameObject.Find("LoginController").GetComponent<LoginController>();
+            login.OnLoggedInDelegate += ShowLoggedInMenu;
             login.OnLoggedInDelegate += OpenMultiplayerMenu;
             login.InitAndLoginFacebook();
         }
-            
-
+    }
+    public void ShowLoggedInMenu()
+    {
+        GameObject menu = GetChildWithNameOfGameObject("SignedInMenu", GameObject.Find("Canvas"));
+        menu.SetActive(true);
     }
     public void CloseMultiplayerMenu()
     {
@@ -115,6 +119,8 @@ public class MainMenuController : MonoBehaviour {
     }
     public void PrepareMenuScene()
     {
+        if (!FB.IsLoggedIn)
+            GameObject.Find("SignedInMenu").SetActive(false);
         GetChildWithNameOfGameObject("Multiplayer", GetChildWithNameOfGameObject("Menu", GameObject.Find("Canvas"))).GetComponent<Button>().onClick.AddListener(delegate { OpenMultiplayerMenu(); });
     }
 }

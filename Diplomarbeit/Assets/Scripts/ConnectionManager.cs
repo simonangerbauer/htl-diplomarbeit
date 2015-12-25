@@ -82,8 +82,8 @@ namespace AssemblyCSharp
 			}
 			catch(Exception e)
 			{
-
-			}
+                FbDebug.Log(e.StackTrace);
+            }
 
 
 			
@@ -112,7 +112,8 @@ namespace AssemblyCSharp
 			}
 			catch(Exception e)
 			{
-			}
+                FbDebug.Log(e.StackTrace);
+            }
 		}
 
 		public List<Match> GetMatchesForPlayerId(string id)
@@ -160,7 +161,8 @@ namespace AssemblyCSharp
 			}
 			catch(Exception e)
 			{
-			}
+                FbDebug.Log(e.StackTrace);
+            }
 			return new List<Match>();
 
 		}
@@ -192,6 +194,7 @@ namespace AssemblyCSharp
 			}
 			catch(Exception e)
 			{
+                FbDebug.Log(e.StackTrace);
 			}
 			return null;
 		}

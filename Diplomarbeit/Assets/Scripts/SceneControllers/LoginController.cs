@@ -52,8 +52,9 @@ public class LoginController : MonoBehaviour {
         Player.Id = FB.UserId;
         Player.Name = FacebookManager.instance.Name;
         GetPlayerData();
-
+        OnLoggedInDelegate += GameObject.Find("MainMenuController").GetComponent<MainMenuController>().ShowLoggedInMenu;
         OnLoggedInDelegate();
+
     }
     private void GetPlayerData()
     {

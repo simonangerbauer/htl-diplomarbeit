@@ -45,11 +45,20 @@ public class FacebookManager : MonoBehaviour {
 
 		FB.Init(SetInit, OnHideUnity);
 	}
-    public void OnInitAndLogin(){
+    public void OnInitAndLogin()
+    {
 		FB.Login("email,publish_actions", LoginCallback); 
 
 	}
+    public void ChallengeAFriend()
+    {
+        FB.AppRequest("I challenge you! Can you beat me?", null, null, null, 1, "", "Challenge a friend!", ChallengeCallback);
+    }
 
+    void ChallengeCallback(FBResult result)
+    {
+        Debug.Log(result.Text);
+    }
 	private void SetInit()                                                                       
 	{                                                                                            
 		Util.Log("SetInit");                                                                  
@@ -98,8 +107,24 @@ public class FacebookManager : MonoBehaviour {
         //GameController.Instance.GetPlayerDataOrCreateNew(FB.UserId);
         OnLoggedInDelegate();
     }
-	
-
+	public void GetFriendUsers()
+    {
+        FB.API("/me/friends?fields=installed", HttpMethod.GET, GetFriendUsersCallback);
+    }
+    private void GetFriendUsersCallback(FBResult result)
+    {
+        if (result.Error == null)
+        {
+            IDictionary dict = Facebook.MiniJSON.Json.Deserialize(result.Text) as IDictionary;
+            List<object> ids = dict["data"] as List<object>;
+            foreach (IDictionary user in ids)
+            {
+                var id = user["id"];
+                //Instantiate listitems
+            }
+            //Make List
+        }
+    }
     private void GetPictureCallback(FBResult result)
     {
         if (result.Error == null)
@@ -135,4 +160,5 @@ public class FacebookManager : MonoBehaviour {
                 return t.gameObject;
         return null;
     }
+
 }
