@@ -40,11 +40,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0c1235d5872bd624d953d2990eab475d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MatchListItemPrefabs:
-  - {fileID: 130526, guid: 6ed27e42237b69448bc791a15b1742cf, type: 2}
-  - {fileID: 121608, guid: ba2650495cbaf7e41a6ed52565dbd163, type: 2}
-  - {fileID: 104988, guid: dd7757f20d2ad3341a525c086c89b48a, type: 2}
-  - {fileID: 111450, guid: f47454758a1551b498b9353a96915a68, type: 2}
+  Multiplicator: 1
+  PlayerGameObject: {fileID: 0}
+  ScoreText: {fileID: 0}
+  CoinText: {fileID: 0}
 --- !u!114 &11427166
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -57,11 +56,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_NetworkPort: 7777
+  m_ServerBindToIP: 0
+  m_ServerBindAddress: 
   m_NetworkAddress: localhost
   m_DontDestroyOnLoad: 1
   m_RunInBackground: 1
-  m_SendPeerInfo: 0
-  m_MaxDelay: .00999999978
+  m_ScriptCRCCheck: 1
+  m_MaxDelay: 0.01
   m_LogLevel: 2
   m_PlayerPrefab: {fileID: 0}
   m_AutoCreatePlayer: 1
@@ -89,8 +90,16 @@ MonoBehaviour:
     m_MaxCombinedReliableMessageCount: 10
     m_MaxSentMessageQueueSize: 128
     m_IsAcksLong: 0
+    m_UsePlatformSpecificProtocols: 0
     m_Channels: []
+  m_GlobalConfig:
+    m_ThreadAwakeTimeout: 1
+    m_ReactorModel: 0
+    m_ReactorMaximumReceivedMessages: 1024
+    m_ReactorMaximumSentMessages: 1024
+    m_MaxPacketSize: 2000
   m_Channels: 
+  m_UseWebSockets: 0
   m_UseSimulator: 0
   m_SimulatedLatency: 1
   m_PacketLossPercentage: 0

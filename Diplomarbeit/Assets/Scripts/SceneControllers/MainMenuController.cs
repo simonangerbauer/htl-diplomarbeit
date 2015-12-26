@@ -86,8 +86,7 @@ public class MainMenuController : MonoBehaviour {
         }
         else
         {
-            LoginController login = GameObject.Find("LoginController").GetComponent<LoginController>();
-            login.OnLoggedInDelegate += ShowLoggedInMenu;
+            LoginController login = LoginController.Instance;
             login.OnLoggedInDelegate += OpenMultiplayerMenu;
             login.InitAndLoginFacebook();
         }

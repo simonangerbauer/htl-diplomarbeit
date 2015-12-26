@@ -20,6 +20,6 @@ public class PlayerHealth : MonoBehaviour {
 	}
 	private void playerDead()
 	{
-		GameController.Instance.GameOver ();
+		GameObject.Find("GameController").GetComponent<GameController>().GameOver ();
 	}
 }

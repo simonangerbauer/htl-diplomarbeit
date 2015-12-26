@@ -30,7 +30,7 @@ public class FacebookManager : MonoBehaviour {
     public OnLoggedInDelegate OnLoggedInDelegate { get; set; }
     public string Name { get; set; }
 
-    void Awake()
+    void Start()
 	{
 		if (_instance == null) {
 			_instance = this;
@@ -66,7 +66,7 @@ public class FacebookManager : MonoBehaviour {
 		if (FB.IsLoggedIn)                                                                       
 		{                                                                                        
 			Util.Log("Already logged in");                                                    
-			OnLoggedIn();                                                                        
+			//OnLoggedIn();                                                                        
 		}                                                                                        
 	}                                                                                            
 	
@@ -98,14 +98,17 @@ public class FacebookManager : MonoBehaviour {
 	{                                                                               
 		Util.Log("Logged in. Unique UserID: " + FB.UserId);
 
+        //GameController.Instance.GetPlayerDataOrCreateNew(FB.UserId);
+        if(OnLoggedInDelegate != null)
+            OnLoggedInDelegate();
+    }
+    public void GetPictureAndName()
+    {
         //Try to get and set picture
         FB.API("me/picture", Facebook.HttpMethod.GET, GetPictureCallback);
 
         //Try to get and set name
         FB.API("me?fields=name", Facebook.HttpMethod.GET, GetNameCallback);
-
-        //GameController.Instance.GetPlayerDataOrCreateNew(FB.UserId);
-        OnLoggedInDelegate();
     }
 	public void GetFriendUsers()
     {
