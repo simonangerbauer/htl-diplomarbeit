@@ -7,6 +7,7 @@ using System.Linq;
 using UnityEngine.UI;
 
 public delegate void OnLoggedInDelegate();
+public delegate void OnFriendsLoadedDelegate(List<object> friendIds);
 
 public class FacebookManager : MonoBehaviour {
 	private static FacebookManager _instance;
@@ -28,6 +29,7 @@ public class FacebookManager : MonoBehaviour {
 	}
 
     public OnLoggedInDelegate OnLoggedInDelegate { get; set; }
+    public OnFriendsLoadedDelegate OnFriendsLoadedDelegate { get; set; }
     public string Name { get; set; }
 
     void Start()
@@ -112,21 +114,21 @@ public class FacebookManager : MonoBehaviour {
     }
 	public void GetFriendUsers()
     {
-        FB.API("/me/friends?fields=installed", HttpMethod.GET, GetFriendUsersCallback);
+        FB.API("/me/friends?fields=installed,name", HttpMethod.GET, GetFriendUsersCallback);
     }
     private void GetFriendUsersCallback(FBResult result)
     {
         if (result.Error == null)
         {
             IDictionary dict = Facebook.MiniJSON.Json.Deserialize(result.Text) as IDictionary;
-            List<object> ids = dict["data"] as List<object>;
-            foreach (IDictionary user in ids)
-            {
-                var id = user["id"];
-                //Instantiate listitems
-            }
-            //Make List
+            List<object> users = dict["data"] as List<object>;
+            OnFriendsLoadedDelegate(users);
         }
+        
+    }
+    public void InviteFriends()
+    {
+        FB.AppRequest(message: "This game is awesome. I want to challenge you. Come on, join me. now.", title: "Invite your friends to join you");
     }
     private void GetPictureCallback(FBResult result)
     {
