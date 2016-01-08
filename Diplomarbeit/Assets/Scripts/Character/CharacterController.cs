@@ -28,11 +28,15 @@ public class CharacterController : MonoBehaviour {
 
     Animator anim;
 	Rigidbody2D rigidBody;
+    GameObject rifle;
+    GameObject bulletSpawn;
 
 	// Use this for initialization
 	void Start () {
         anim = GetComponent<Animator>();
 		rigidBody=GetComponent<Rigidbody2D>();
+        rifle = GameObject.Find("LeftArm");
+        bulletSpawn = GameObject.Find("BulletSpawnPoint");
 	}
 
     void FixedUpdate()
@@ -91,10 +95,18 @@ public class CharacterController : MonoBehaviour {
     {
         if ((Input.mousePosition.x > Screen.width / 5 || Input.mousePosition.y > Screen.height / 2.5) && (Input.mousePosition.x > 60 || Input.mousePosition.y < Screen.height - 60))
         {
+            //shooting animation on character
+            //anim.CrossFade("Shooting", 0f);
+
             Vector3 target = new Vector3(Input.mousePosition.x, Input.mousePosition.y, 0);
             target = Camera.main.ScreenToWorldPoint(target);
             target.Set(target.x, target.y, gameObject.transform.position.z);
 
+            //rifle movement
+            Quaternion rotation = Quaternion.LookRotation(target - transform.position, transform.TransformDirection(Vector3.up));
+            rifle.transform.rotation = new Quaternion(0, 0, rotation.z, rotation.w); ;
+
+            //bullet spawning
             GameObject obj = bullets.FirstOrDefault(x => !x.activeInHierarchy);
             if (obj == null)
             {
@@ -103,9 +115,9 @@ public class CharacterController : MonoBehaviour {
             }
 
             obj.SetActive(true);
-            obj.transform.position = new Vector3(transform.position.x,transform.position.y,0);
-            obj.transform.rotation = transform.rotation;
-            obj.GetComponent<Rigidbody2D>().velocity = (target - transform.position).normalized * speed;
+            obj.transform.position = new Vector3(bulletSpawn.transform.position.x,bulletSpawn.transform.position.y,0);
+            obj.transform.rotation = bulletSpawn.transform.rotation;
+            obj.GetComponent<Rigidbody2D>().velocity = (target - bulletSpawn.transform.position).normalized * speed;
             shoot = false;
             Invoke("CanShootAgain", 1f);
         }
