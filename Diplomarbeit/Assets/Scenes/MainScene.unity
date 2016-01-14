@@ -304,10 +304,10 @@ GameObject:
   - 4: {fileID: 77820587}
   - 95: {fileID: 141969059}
   - 50: {fileID: 141969058}
-  - 61: {fileID: 141969057}
-  - 61: {fileID: 141969056}
   - 114: {fileID: 141969054}
   - 114: {fileID: 141969055}
+  - 61: {fileID: 141969057}
+  - 58: {fileID: 141969056}
   m_Layer: 0
   m_Name: FatCharacter
   m_TagString: Player
@@ -350,11 +350,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   health: {fileID: 1408386481}
---- !u!61 &141969056
-BoxCollider2D:
+--- !u!58 &141969056
+CircleCollider2D:
   m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 6199328, guid: a3f80dc83670a3340b1d22a773f91951,
-    type: 2}
+  m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 141969053}
   m_Enabled: 1
@@ -362,14 +361,13 @@ BoxCollider2D:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_UsedByEffector: 0
-  m_Offset: {x: -0.96536636, y: 0.6588805}
+  m_Offset: {x: -1.2, y: -2}
   serializedVersion: 2
-  m_Size: {x: 16.559277, y: 19.112236}
+  m_Radius: 7.4676733
 --- !u!61 &141969057
 BoxCollider2D:
   m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 6125388, guid: a3f80dc83670a3340b1d22a773f91951,
-    type: 2}
+  m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 141969053}
   m_Enabled: 1
@@ -377,9 +375,9 @@ BoxCollider2D:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_UsedByEffector: 0
-  m_Offset: {x: -0.3680539, y: -9.130001}
+  m_Offset: {x: -0.3321457, y: -9.350254}
   serializedVersion: 2
-  m_Size: {x: 9.693927, y: 3.1400013}
+  m_Size: {x: 6.774001, y: 2.2995133}
 --- !u!50 &141969058
 Rigidbody2D:
   serializedVersion: 2

@@ -18,6 +18,8 @@ public class GameController : MonoBehaviour {
 	public Match ActiveMatch;
     public GameMenuController GameMenuController;
     private int deltaDistance;
+    private float timeScale = 1.0f;
+    private bool paused = false;
     void Start()
     {
         this.Player = LoginController.Instance.Player;
@@ -32,18 +34,24 @@ public class GameController : MonoBehaviour {
     }
 	void Update()
 	{
-        Debug.Log(PlayerGameObject.transform.position.x);
+        if(!paused)
+        {
+            timeScale += 0.0001f;
+            Time.timeScale = timeScale;
+        }
 		Distance = (int)(PlayerGameObject.transform.position.x*Multiplicator) - deltaDistance;
         UpdateScoreText();
     }
 	public void PrepareMainScene()
 	{
-        Time.timeScale = 1.0f;
+        paused = false;
+        Time.timeScale = timeScale;
         GameMenuController.HideMenus();
 	}
 
 	public void GameOver()
 	{
+        paused = true;
         GameMenuController.ShowGameOverMenu(Distance, Currency);
         
         Time.timeScale = 0.0f;
@@ -74,7 +82,8 @@ public class GameController : MonoBehaviour {
 	}
 
 	public void Pause()
-	{        
+	{
+        paused = true;
 		Time.timeScale = 0.0f;
         GameMenuController.ShowPauseMenu();
 	}

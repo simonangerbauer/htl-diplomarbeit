@@ -93,7 +93,7 @@ public class CharacterController : MonoBehaviour {
 
     public void Shoot()
     {
-        if ((Input.mousePosition.x > Screen.width / 5 || Input.mousePosition.y > Screen.height / 2.5) && (Input.mousePosition.x > 60 || Input.mousePosition.y < Screen.height - 60))
+        if ((Input.mousePosition.x > Screen.width / 5 || Input.mousePosition.y > Screen.height / 2.5) && (Input.mousePosition.x > 60 || Input.mousePosition.y < Screen.height - 60) && Input.mousePosition.x > Screen.width / 3)
         {
             //shooting animation on character
             //anim.CrossFade("Shooting", 0f);
