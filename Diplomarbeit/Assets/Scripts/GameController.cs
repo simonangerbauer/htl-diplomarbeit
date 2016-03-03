@@ -22,7 +22,11 @@ public class GameController : MonoBehaviour {
     private bool paused = false;
     void Start()
     {
-        this.Player = LoginController.Instance.Player;
+        this.Player = DataService.instance.Player;
+
+        this.ActiveMatch = DataService.instance.SharedData as Match;
+        DataService.instance.SharedData = null;
+        
         PrepareMainScene();
         if (ActiveMatch != null)
         {
@@ -56,7 +60,16 @@ public class GameController : MonoBehaviour {
         
         Time.timeScale = 0.0f;
 		if ((Distance + (Currency * 10)) > Player.Highscore)
-			Player.Highscore = (Distance + (Currency * 10));
+        {
+            var newScore = (Distance + (Currency * 10));
+            DataService.instance.UpdatePlayerScore(newScore);
+        }
+
+        if(Currency!=0)
+        {
+            DataService.instance.UpdatePlayerCoins(Currency);
+        }
+			
 
 		if (ActiveMatch != null) 
 		{
@@ -66,20 +79,24 @@ public class GameController : MonoBehaviour {
                 if (ActiveMatch.ChallengerScore > ActiveMatch.ChallengedScore)
                 {
                     GameMenuController.DisplayMultiplayerScore(false, ActiveMatch.ChallengerScore);
-                    ActiveMatch.Winner = ActiveMatch.ChallengerId;
+                    //ActiveMatch.Winner = ActiveMatch.ChallengerId;
                 }
                 else
                 {
                     GameMenuController.DisplayMultiplayerScore(true, ActiveMatch.ChallengerScore);
-                    ActiveMatch.Winner = ActiveMatch.ChallengedId;
+                    //ActiveMatch.Winner = ActiveMatch.ChallengedId;
                 }  
             }
             else
+            {
                 ActiveMatch.ChallengerScore = Distance + Currency * 10;
+            }
+            DataService.instance.HandleMatch(ActiveMatch);
         }
+        
         //TODO: Datenbankanbindung GameOver (Matches & Playerscore)
-		ConnectionManager.instance.UpdatePlayerData (this.Player);
-	}
+        //ConnectionManager.instance.UpdatePlayerData (this.Player);
+    }
 
 	public void Pause()
 	{

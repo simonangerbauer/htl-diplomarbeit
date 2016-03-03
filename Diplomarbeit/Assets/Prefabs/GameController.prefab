@@ -44,6 +44,7 @@ MonoBehaviour:
   PlayerGameObject: {fileID: 0}
   ScoreText: {fileID: 0}
   CoinText: {fileID: 0}
+  GameMenuController: {fileID: 0}
 --- !u!114 &11427166
 MonoBehaviour:
   m_ObjectHideFlags: 1

@@ -257,12 +257,12 @@ namespace Facebook
 
         private void BadAccessToken(string error)
         {
-            FbDebug.Error(error);
-            userId = "";
-            fb.UserId = "";
-            accessToken = "";
-            fb.AccessToken = "";
-            FBComponentFactory.GetComponent<EditorFacebookAccessToken>();
+            //FbDebug.Error(error);
+            //userId = "";
+            //fb.UserId = "";
+            //accessToken = "";
+            //fb.AccessToken = "";
+            //FBComponentFactory.GetComponent<EditorFacebookAccessToken>();
         }
 
         #endregion

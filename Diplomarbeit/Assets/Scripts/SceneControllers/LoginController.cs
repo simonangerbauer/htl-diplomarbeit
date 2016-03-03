@@ -2,6 +2,7 @@
 using System.Collections;
 using AssemblyCSharp;
 using System.Collections.Generic;
+using Assets.Scripts.DataService;
 
 public class LoginController : MonoBehaviour {
     private static LoginController _instance;
@@ -39,7 +40,7 @@ public class LoginController : MonoBehaviour {
 
     void Start ()
     {
-        Player = new Player { Id = "1234", Coins = 12, Highscore = 123, Matches = new List<Match>(), Name = "Koal", Powerups = new List<Powerup>()};
+        Player = new Player { Id = 123, Coins = 12, Highscore = 123, Matches = new List<Match>(), Name = "Koal", Powerups = new List<Powerup>()};
 	    //TODO: Create Temp Player
 	}
 
@@ -53,13 +54,17 @@ public class LoginController : MonoBehaviour {
     }
     private void FacebookLoginCallback()
     {
+        DataService.instance.AuthenticateUser(FB.UserId);
+
         Player = new Player();
-        Player.Id = FB.UserId;
+        //Player.Id = user.Id+"";
         Player.Name = FacebookManager.instance.Name;
         GetPlayerData();
         OnLoggedInDelegate += GameObject.Find("MainMenuController").GetComponent<MainMenuController>().ShowLoggedInMenu;
         OnLoggedInDelegate();
         FacebookManager.instance.GetPictureAndName();
+
+        
     }
     private void GetPlayerData()
     {

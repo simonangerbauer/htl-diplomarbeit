@@ -13,7 +13,7 @@ namespace AssemblyCSharp
 {
 	public class Player
 	{
-		public string Id {
+		public int Id {
 			get;
 			set;
 		}
@@ -42,11 +42,13 @@ namespace AssemblyCSharp
 			get;
 			set;
 		}
+        public DateTime LastLoginTime { get; set; }
 
-		public Player ()
+        public String identNo { get; set; }
+        public Player ()
 		{
 		}
-		public Player (string Id, string Revision, string Name, int Coins, int Highscore, List<Powerup> Powerups)
+		public Player (int Id, string Revision, string Name, int Coins, int Highscore, List<Powerup> Powerups)
 		{
 			this.Id = Id;
 			this.Revision = Revision;

@@ -55,7 +55,7 @@ namespace AssemblyCSharp
 				if(!(json[0].str == "not_found" && json[1].str == "missing"))
 				{
 					Player player = new Player();
-					player.Id = json[0].str;
+					//player.Id = json[0].str;
 					player.Revision = json[1].str;
 					player.Name = json[2].str;
 					player.Coins = (int)json[3].n;
@@ -69,7 +69,7 @@ namespace AssemblyCSharp
 				{
 					UpdatePlayerData(new Player()
 					{
-						Id = id,
+						//Id = id,
 						Revision = null,
 						Name = "",
 						Coins = 0,
@@ -120,9 +120,9 @@ namespace AssemblyCSharp
 		{
 			List<Match> result = GetMatchesForPlayerIdAndViewName (id, "challenged");
 			result.AddRange(GetMatchesForPlayerIdAndViewName(id,"challenger"));
-			List<Match> temp = new List<Match>(result.Where (x => x.Winner != "none"));
-			result.RemoveAll (x => x.Winner != "none");
-			result.AddRange (temp);
+			//List<Match> temp = new List<Match>(result.Where (x => x.Winner != "none"));
+			//result.RemoveAll (x => x.Winner != "none");
+			//result.AddRange (temp);
 			return result;
 		}
 
@@ -145,13 +145,12 @@ namespace AssemblyCSharp
 						if(j != null)
 						{
 							Match match = new Match();
-							match.Id = j.list[2].list[0].str;
-							match.Revision = j.list[2].list[1].str;
-							match.ChallengerId = j.list[2].list[2].str;
-							match.ChallengedId = j.list[2].list[3].str;
+							//match.Id = j.list[2].list[0].str;
+							//match.ChallengerId = j.list[2].list[2].str;
+							//match.ChallengedId = j.list[2].list[3].str;
 							match.ChallengerScore = (int)j.list[2].list[4].n;
 							match.ChallengedScore = (int)j.list[2].list[5].n;
-							match.Winner = j.list[2].list[6].str;
+							//match.Winner = j.list[2].list[6].str;
 							match.Seed = (int)j.list[2].list[7].n;
 							result.Add(match);
 						}
@@ -180,13 +179,13 @@ namespace AssemblyCSharp
 				if(!(json[0].str == "not_found" && json[1].str == "missing"))
 				{
 					Match match = new Match();
-					match.Id = json[0].str;
-					match.Revision = json[1].str;
-					match.ChallengerId = json[2].str;
-					match.ChallengedId = json[3].str;
+					//match.Id = json[0].str;
+					//match.Revision = json[1].str;
+					//match.ChallengerId = json[2].str;
+					//match.ChallengedId = json[3].str;
 					match.ChallengerScore = (int)json[4].n;
 					match.ChallengedScore = (int)json[5].n;
-					match.Winner = json[6].str;
+					//match.Winner = json[6].str;
 					match.Seed = (int)json[7].n;
 					
 					return match;

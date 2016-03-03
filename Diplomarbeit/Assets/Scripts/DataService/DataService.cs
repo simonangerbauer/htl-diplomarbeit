@@ -1,53 +1,173 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using Assets.Scripts.DataService;
+using System;
+using AssemblyCSharp;
 
 public class DataService : MonoBehaviour {
+    private static DataService _instance;
+    public static DataService instance
+    {
+        get
+        {
+            if (_instance == null)
+            {
+                _instance = GameObject.FindObjectOfType<DataService>();
+                DontDestroyOnLoad(_instance.gameObject);
+            }
+            return _instance;
+        }
+    }
+
+    public Player Player { get; set; }
+
+    //Can be anything, used for sharing data between two scenes; e.g. CurrentMatch
+    public System.Object SharedData {
+        get; set;
+    }
+
+    private ServerConnection connection;
 
 	// Use this for initialization
 	void Start () {
-        var encoding = new System.Text.UTF8Encoding();
-
-        Dictionary<string, string> dict = new Dictionary<string, string>();
-        dict.Add("Content-Type", "application/json");
-
-        JSONObject obj = new JSONObject();
-
-        obj.AddField("userid", "28838929917");
-        obj.AddField("auth", "aspdoifjaspdoifup21");
-
-        var decodedJson = obj.ToString();
-
-        var jsonString = decodedJson;//"{\"seiler\":0}";
-
-        WWW www = new WWW("http://127.0.0.1:8080/HuntAndRun/login",encoding.GetBytes(jsonString),dict);
-
-        StartCoroutine(WaitForRequest(www));
-        while (!www.isDone) { }
-
-
-        var text = www.text;
-        //JSONObject obj = new JSONObject(www.text);
-        Debug.Log("Getting this shit now");
-        Debug.Log(www.text);
-
-        //JSONObject obj = new JSONObject(www.text);
-
-
+        connection = new ServerConnection();
     }
 
-    IEnumerator WaitForRequest(WWW www)
+    public void AuthenticateUser(string userId)
     {
-        yield return www;
+        JSONObject obj = new JSONObject();
+        obj.AddField("userid", userId);
 
-        // check for errors
-        if (www.error == null)
+        LoginResponse loginResponse = new LoginResponse(connection.MakeRequest("login", obj));
+        //When unable to login
+        if (loginResponse.hasFailed()) 
         {
-            Debug.Log("WWW Ok!: " + www.text);
+            //Benutzer existiert noch nicht
+            if (loginResponse.IsAllowedToCreate())
+            {
+                //Es dürfen neue Benutzer registriert werden
+                RegisterResponse registerResponse = new RegisterResponse(connection.MakeRequest("register", obj));
+
+                //When user registred successfully
+                if (!registerResponse.HasFailed())
+                {
+                    loginResponse = new LoginResponse(connection.MakeRequest("login", obj));
+                    if (!loginResponse.hasFailed())
+                    {
+                        this.Player = new Player();
+
+                        var lastLoginTime = loginResponse.GetLastLoginTime();
+                        this.Player.LastLoginTime = lastLoginTime;
+
+                        var playerId = loginResponse.GetPlayerId();
+                        this.Player.Id = playerId;
+
+                        var oldHighScore = loginResponse.GetHighScore();
+                        this.Player.Highscore = oldHighScore;
+
+                        this.Player.identNo = FB.UserId;
+                    }
+                }
+            }
         }
         else
         {
-            Debug.Log("WWW Error: " + www.error);
+            //User successfully signed in
+            this.Player = new Player();
+
+            var lastLoginTime = loginResponse.GetLastLoginTime();
+            this.Player.LastLoginTime = lastLoginTime;
+
+            var playerId = loginResponse.GetPlayerId();
+            this.Player.Id = playerId;
+
+            var oldHighScore = loginResponse.GetHighScore();
+            this.Player.Highscore = oldHighScore;
+
+            this.Player.identNo = FB.UserId;
+        }
+
+        Debug.Log("Heyo");
+    }
+
+    internal List<Match> GetMatchesForPlayer()
+    {
+        JSONObject obj = new JSONObject();
+        obj.AddField("userid", this.Player.Id);
+
+        MatchResponse matchResponse = new MatchResponse(connection.MakeRequest("getMatches", obj));
+        if (!matchResponse.hasFailed())
+        {
+            var matches = matchResponse.GetMatches();
+            return matches;
+        }
+        else
+        {
+            Debug.Log("Es konnten keine Matches gefunden werden, weil ein Error aufgetaucht ist!");
+            return null;
+        }
+    }
+
+    internal void UpdatePlayerCoins(int currency)
+    {
+        JSONObject obj = new JSONObject();
+        obj.AddField("userid", this.Player.Id);
+        obj.AddField("new_coins", currency);
+
+        UpdateSingleScoreResponse scoreResponse = new UpdateSingleScoreResponse(connection.MakeRequest("updateCoinAmount", obj));
+        if (!scoreResponse.hasFailed())
+        {
+            this.Player.Coins = this.Player.Coins+currency;
+            Debug.Log("Coins wurden erfolgreich auf " + this.Player.Coins + " erhöht!");
+        }
+        else
+        {
+            Debug.Log("Es gibt einen Fehler, die Coinanzahl wurde nicht verändert!");
+        }
+    }
+
+    internal void UpdatePlayerScore(int newScore)
+    {
+        JSONObject obj = new JSONObject();
+        obj.AddField("userid", this.Player.Id);
+        obj.AddField("new_score", newScore);
+
+        UpdateSingleScoreResponse scoreResponse = new UpdateSingleScoreResponse(connection.MakeRequest("updateSingleScore", obj));
+        if (!scoreResponse.hasFailed())
+        {
+            this.Player.Highscore = newScore;
+            Debug.Log("Score wurde erfolgreich auf " + this.Player.Highscore + " erhöht!");
+        }
+        else
+        {
+            Debug.Log("Es gibt einen Fehler, der Highscore wurde nicht verändert!");
+        }
+    }
+
+    internal void HandleMatch(Match match)
+    {
+        JSONObject obj = new JSONObject();
+        obj.AddField("userid", this.Player.Id);
+
+        JSONObject jsonMatch = new JSONObject();
+
+        jsonMatch.AddField("id", match.Id);
+        jsonMatch.AddField("challenger_id",match.ChallengerId);
+        jsonMatch.AddField("challenged_facebook_id", match.ChallengedFbId);
+        jsonMatch.AddField("challenger_score", match.ChallengerScore);
+        jsonMatch.AddField("challenged_score", match.ChallengedScore);
+
+        obj.AddField("match", jsonMatch);
+
+        HandleMatchResponse scoreResponse = new HandleMatchResponse(connection.MakeRequest("handleMatch", obj));
+        if (!scoreResponse.hasFailed())
+        {
+            Debug.Log("Das Match ist bearbeitet worden!");
+        }
+        else
+        {
+            Debug.Log("Das Match ist nicht bearbeitet worden!");
         }
     }
 }

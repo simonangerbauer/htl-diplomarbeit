@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using AssemblyCSharp;
 using UnityEngine.UI;
 using System.Collections;
+using UnityEngine.SceneManagement;
 
 public class MainMenuController : MonoBehaviour {
 
@@ -23,7 +24,7 @@ public class MainMenuController : MonoBehaviour {
 
     public void StartGame()
     {
-        Application.LoadLevel(1);
+        SceneManager.LoadScene(1);
     }
 
     public void OpenMultiplayerMenu()
@@ -33,16 +34,17 @@ public class MainMenuController : MonoBehaviour {
             GameObject menu;
             menu = GetChildWithNameOfGameObject("MultiplayerMenu", GameObject.Find("Canvas"));
             menu.SetActive(true);
-            List<Match> matches = ConnectionManager.instance.GetMatchesForPlayerId(FB.UserId);
+            List<Match> matches = DataService.instance.GetMatchesForPlayer();//ConnectionManager.instance.GetMatchesForPlayerId(FB.UserId);
             int scrollContentHeight = 0;
+            
             if(matches.Count > 0)
             {
                 foreach (Match m in matches)
                 {
                     GameObject childObject;
-                    if (m.Winner == "none") //TODO: Datenbank Matches
+                    if (m.ChallengedScore == 0) //TODO: Datenbank Matches
                     {
-                        if (m.ChallengerId == FB.UserId)
+                        if (m.ChallengerId == DataService.instance.Player.Id)
                             //Instantiate ChallengerItem
                             childObject = Instantiate(MatchListItemPrefabs[0]) as GameObject;
                         else
@@ -51,7 +53,7 @@ public class MainMenuController : MonoBehaviour {
                     }
                     else
                     {
-                        if (m.Winner == FB.UserId)
+                        if (m.ChallengerScore>m.ChallengedScore)//Winner == FB.UserId)
                             //Instantiate WonItem
                             childObject = Instantiate(MatchListItemPrefabs[2]) as GameObject;
                         else
@@ -70,19 +72,19 @@ public class MainMenuController : MonoBehaviour {
                         if (playButton)
                         {
                             Button b = playButton.GetComponent<Button>();
-                            b.onClick.AddListener(delegate { StartMatch(m.Id); });
+                            b.onClick.AddListener(delegate { StartMatch(m); });
                         }
                         Image UserImage = GetChildWithNameOfGameObject("Opponent", childObject).GetComponent<Image>();
                         var opponentId = "";
-                        if (m.ChallengerId == FB.UserId)
+                        if (m.ChallengerId == DataService.instance.Player.Id)//FB.UserId)
                         {
-                            opponentId = m.ChallengedId;
+                            opponentId = m.ChallengedFbId;
                             GetChildWithNameOfGameObject("OpponentScore", childObject).GetComponent<Text>().text = "Score: " + m.ChallengedScore;
                             GetChildWithNameOfGameObject("PlayerScore", childObject).GetComponent<Text>().text = "Your Score: " + m.ChallengerScore;
                         }
                         else
                         {
-                            opponentId = m.ChallengerId;
+                            opponentId = m.ChallengerFbId;
                             GetChildWithNameOfGameObject("OpponentScore", childObject).GetComponent<Text>().text = "Score: " + m.ChallengerScore;
                             GetChildWithNameOfGameObject("PlayerScore", childObject).GetComponent<Text>().text = "Your Score: " + m.ChallengedScore;
                         }
@@ -103,8 +105,9 @@ public class MainMenuController : MonoBehaviour {
             }
             else
             {
-                GetChildWithNameOfGameObject("EmptyText", menu).SetActive(true);
+                //GetChildWithNameOfGameObject("EmptyText", menu).SetActive(true); TODO : Wos mocht des? Auskommentiert weili mi ned auskenn
             }
+            
         }
         else
         {
@@ -190,11 +193,21 @@ public class MainMenuController : MonoBehaviour {
                 return t.gameObject;
         return null;
     }
+    public void StartMatch(Match match)
+    {
+        DataService.instance.SharedData = match;
+        SceneManager.LoadScene(1);
+    }
     public void StartMatch(string id)
     {
         //TODO: Matches üwalegn
-        //ActiveMatch = ConnectionManager.instance.GetMatchForId(id);
-        Application.LoadLevel(1);
+        Match match = new Match();
+        match.ChallengerId = DataService.instance.Player.Id;
+        match.ChallengedFbId = id;
+        match.Seed = Random.seed;
+
+        DataService.instance.SharedData = match; //ConnectionManager.instance.GetMatchForId(id);
+        SceneManager.LoadScene(1);
     }
     public void PrepareMenuScene()
     {

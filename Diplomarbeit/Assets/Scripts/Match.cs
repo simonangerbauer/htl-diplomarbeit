@@ -5,22 +5,24 @@ namespace AssemblyCSharp
 {
 	public class Match
 	{
-		public string Id {
+		public int Id {
 			get;
 			set;
 		}
-		public string Revision {
+		public int ChallengerId {
 			get;
 			set;
 		}
-		public string ChallengerId {
+		public int ChallengedId {
 			get;
 			set;
 		}
-		public string ChallengedId {
-			get;
-			set;
-		}
+        public string ChallengedFbId
+        {
+            get;
+            set;
+        }
+
 		public int ChallengerScore {
 			get;
 			set;
@@ -29,15 +31,19 @@ namespace AssemblyCSharp
 			get;
 			set;
 		}
-		public string Winner {
+		/*
+        public string Winner {
 			get;
 			set;
 		}
+        */
 		public int Seed {
 			get;
 			set;
 		}
-		public Match ()
+        public string ChallengerFbId { get; set; }
+
+        public Match ()
 		{
 
 

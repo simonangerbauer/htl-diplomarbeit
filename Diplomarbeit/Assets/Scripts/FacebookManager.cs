@@ -67,8 +67,7 @@ public class FacebookManager : MonoBehaviour {
 		enabled = true; // "enabled" is a property inherited from MonoBehaviour                  
 		if (FB.IsLoggedIn)                                                                       
 		{                                                                                        
-			Util.Log("Already logged in");                                                    
-			//OnLoggedIn();                                                                        
+			Util.Log("Already logged in");     
 		}                                                                                        
 	}                                                                                            
 	
@@ -102,7 +101,11 @@ public class FacebookManager : MonoBehaviour {
 
         //GameController.Instance.GetPlayerDataOrCreateNew(FB.UserId);
         if(OnLoggedInDelegate != null)
+        {
             OnLoggedInDelegate();
+        }
+
+        string userId = FB.UserId;
     }
     public void GetPictureAndName()
     {
