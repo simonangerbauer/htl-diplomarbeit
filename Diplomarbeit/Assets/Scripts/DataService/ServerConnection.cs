@@ -10,7 +10,7 @@ namespace Assets.Scripts.DataService
 {
     class ServerConnection
     {
-        private String url = "http://localhost:8080/HuntAndRun/";
+        private String url = "http://huntandrun.htl-perg.ac.at:8080/HuntAndRun/";
 
         public JSONObject MakeRequest(string urlPath,JSONObject obj)
         {
