@@ -42,7 +42,7 @@ public class MainMenuController : MonoBehaviour {
                 foreach (Match m in matches)
                 {
                     GameObject childObject;
-                    if (m.ChallengedScore == 0) //TODO: Datenbank Matches
+                    if (m.ChallengedScore == 0)
                     {
                         if (m.ChallengerId == DataService.instance.Player.Id)
                             //Instantiate ChallengerItem
@@ -53,7 +53,7 @@ public class MainMenuController : MonoBehaviour {
                     }
                     else
                     {
-                        if (m.ChallengerScore>m.ChallengedScore)//Winner == FB.UserId)
+                        if (m.GetWinner() == DataService.instance.Player.Id)
                             //Instantiate WonItem
                             childObject = Instantiate(MatchListItemPrefabs[2]) as GameObject;
                         else
@@ -105,7 +105,8 @@ public class MainMenuController : MonoBehaviour {
             }
             else
             {
-                //GetChildWithNameOfGameObject("EmptyText", menu).SetActive(true); TODO : Wos mocht des? Auskommentiert weili mi ned auskenn
+                //Fehlermeldung wenn Liste leer
+                GetChildWithNameOfGameObject("EmptyText", menu).SetActive(true);
             }
             
         }
@@ -200,13 +201,12 @@ public class MainMenuController : MonoBehaviour {
     }
     public void StartMatch(string id)
     {
-        //TODO: Matches üwalegn
         Match match = new Match();
         match.ChallengerId = DataService.instance.Player.Id;
         match.ChallengedFbId = id;
         match.Seed = Random.seed;
 
-        DataService.instance.SharedData = match; //ConnectionManager.instance.GetMatchForId(id);
+        DataService.instance.SharedData = match;
         SceneManager.LoadScene(1);
     }
     public void PrepareMenuScene()

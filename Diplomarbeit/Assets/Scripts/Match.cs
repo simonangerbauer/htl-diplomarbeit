@@ -48,6 +48,15 @@ namespace AssemblyCSharp
 
 
 		}
+        public int GetWinner()
+        {
+            if (ChallengedScore == 0)
+                return -1;
+            else if (ChallengedScore > ChallengerScore)
+                return ChallengedId;
+            else
+                return ChallengerId;
+        }
 	}
 }
 

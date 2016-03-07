@@ -51,6 +51,7 @@ public class LoginController : MonoBehaviour {
             FacebookManager.instance.OnLoggedInDelegate += FacebookLoginCallback;
             FacebookManager.instance.OnInitAndLogin();
         }
+        
     }
     private void FacebookLoginCallback()
     {
@@ -59,17 +60,10 @@ public class LoginController : MonoBehaviour {
         Player = new Player();
         //Player.Id = user.Id+"";
         Player.Name = FacebookManager.instance.Name;
-        GetPlayerData();
         OnLoggedInDelegate += GameObject.Find("MainMenuController").GetComponent<MainMenuController>().ShowLoggedInMenu;
         OnLoggedInDelegate();
         FacebookManager.instance.GetPictureAndName();
 
-        
-    }
-    private void GetPlayerData()
-    {
-        //this.PlayerData = ConnectionManager.instance.GetPlayerDataForId(id);
-        //TODO: Datenbankverbindung aufbauen und Daten holen
         
     }
 }

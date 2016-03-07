@@ -67,8 +67,15 @@ public class FacebookManager : MonoBehaviour {
 		enabled = true; // "enabled" is a property inherited from MonoBehaviour                  
 		if (FB.IsLoggedIn)                                                                       
 		{                                                                                        
-			Util.Log("Already logged in");     
-		}                                                                                        
+			Util.Log("Already logged in");
+            if (DataService.instance.Player == null)
+            {
+                DataService.instance.AuthenticateUser(FB.UserId);
+                FacebookManager.instance.GetPictureAndName();
+                GameObject.Find("MainMenuController").GetComponent<MainMenuController>().ShowLoggedInMenu();
+            }
+               
+        }                                                                                        
 	}                                                                                            
 	
 	private void OnHideUnity(bool isGameShown)                                                   
